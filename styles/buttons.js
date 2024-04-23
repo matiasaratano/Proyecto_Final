@@ -3,11 +3,16 @@ import { StyleSheet } from 'react-native';
 const buttons = StyleSheet.create({
     containerbutton: {
         flexDirection: 'row',
-        alignSelf: 'center',
-        margin: 20
+        alignSelf: 'center'
     },
     blackButton: {
         backgroundColor: 'black',
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 30
+    },
+    purpleButton: {
+        backgroundColor: '#544EEB',
         borderWidth: 2,
         borderColor: 'white',
         borderRadius: 30
