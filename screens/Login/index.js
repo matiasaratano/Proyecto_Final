@@ -1,57 +1,53 @@
 import { useState, useContext } from 'react';
 import { Text, View, TextInput, Image } from 'react-native';
 import GlobalContext from '../../services/GlobalContext';
-import { Button } from '@rneui/themed';
+import { Button } from 'react-native-paper';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
-
 export default ({ navigation }) => {
-
-  const [Inputlogin, OnchangeLogin] = useState('')
-  const [Inputpassword, OnchangePassword] = useState('')
-  const { user,setUser } = useContext(GlobalContext)
+  const [Inputlogin, OnchangeLogin] = useState('');
+  const [Inputpassword, OnchangePassword] = useState('');
+  const { user, setUser } = useContext(GlobalContext);
 
   const handleLogin = () => {
-    console.log("Login")
-  }
+    console.log('Login');
+  };
 
   const navigate = () => {
-    navigation.navigate('Register')
-  }
+    navigation.navigate('Register');
+  };
 
   return (
     <View>
-        <Image
-          style={{ alignSelf: 'center',  width: 200, height: 200 }}
-          source={require('../../assets/logodbt.png')}
+      <Image
+        style={{ alignSelf: 'center', width: 200, height: 200 }}
+        source={require('../../assets/logodbt.png')}
+      />
+      <View>
+        <Text style={{ marginLeft: 40, color: '#544EEB' }}>
+          Correo electrónico
+        </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={OnchangeLogin}
+          value={Inputlogin}
         />
-        <View>
-          <Text style={{ marginLeft: 40, color: '#544EEB' }}>Correo electrónico</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={OnchangeLogin}
-            value={Inputlogin}
-          />
-          <Text style={{ marginLeft: 40, color: '#544EEB'  }}>Contraseña</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={OnchangePassword}
-            value={Inputpassword}
-          />
-          <View style={buttons.containerbutton}>
-            <Button title="Login" onPress={handleLogin} buttonStyle={buttons.purpleButton}
-              containerStyle={styles.containerStyle}
-              titleStyle={{ fontWeight: 'bold' }} />
-            <Text>   </Text>
-            <Button title="Register" onPress={navigate} buttonStyle={buttons.purpleButton}
-              containerStyle={styles.containerStyle}
-              titleStyle={{ fontWeight: 'bold' }} />
-            <Text>   </Text>
+        <Text style={{ marginLeft: 40, color: '#544EEB' }}>Contraseña</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={OnchangePassword}
+          value={Inputpassword}
+        />
+        <View style={buttons.containerbutton}>
+          <Button mode="elevated" onPress={handleLogin} style={buttons.button}>
+            Login
+          </Button>
 
-          </View>
+          <Button mode="elevated" onPress={navigate} style={buttons.button}>
+            Registrase
+          </Button>
         </View>
-
+      </View>
     </View>
-  )
-
-}
+  );
+};
