@@ -5,6 +5,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     alignSelf: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  subtitle: {
+    textAlign: 'center',
+    marginBottom: 20,
   },
   input: {
     alignSelf: 'center',
