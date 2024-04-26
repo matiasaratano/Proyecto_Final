@@ -20,10 +20,17 @@ export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text variant="headlineMedium">Revisemos los datos de tu reserva</Text>
-        {/* Falta traer datos de la reserva */}
+        <Text style={styles.title} variant="displaySmall">
+          Revisemos los datos de tu reserva!
+        </Text>
+        {/* Falta codear como traer datos de la reserva */}
         <View>
-          <Text variant="headlineMedium"></Text>
+          <Text style={styles.subtitle} variant="headlineMedium">
+            Reserva de escritorio.
+          </Text>
+          <Text variant="titleMedium">Día:</Text>
+          <Text variant="titleMedium">Horario:</Text>
+          <Text variant="titleMedium">Dirección:</Text>
         </View>
         <View style={buttons.containerbutton}>
           <Button
@@ -31,15 +38,10 @@ export default ({ navigation }) => {
             onPress={handleRegister}
             style={buttons.button}
           >
-            Cancelar
-          </Button>
-
-          <Button
-            mode="elevated"
-            onPress={handleRegister}
-            style={buttons.button}
-          >
             Confirmar
+          </Button>
+          <Button mode="elevated" onPress={navigate} style={buttons.button}>
+            Cancelar
           </Button>
         </View>
       </View>

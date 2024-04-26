@@ -10,6 +10,7 @@ import MiPerfil from './screens/MiPerfil';
 import Register from './screens/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import RevisarReserva from './screens/RevisarReserva';
+import ListaDeEspera from './screens/ListaDeEspera';
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -29,6 +30,7 @@ export default function App() {
             <Drawer.Screen name="Login" component={Login} />
             <Drawer.Screen name="Register" component={Register} />
             <Drawer.Screen name="Revistar Reserva" component={RevisarReserva} />
+            <Drawer.Screen name="Lista de Espera" component={ListaDeEspera} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>
