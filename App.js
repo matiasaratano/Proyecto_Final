@@ -11,6 +11,8 @@ import Register from './screens/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import RevisarReserva from './screens/RevisarReserva';
 import ListaDeEspera from './screens/ListaDeEspera';
+import VerificarInicioSesion from './screens/VerificarInicioSesion';
+import VerificarReserva from './screens/VerificarReserva';
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -31,6 +33,8 @@ export default function App() {
             <Drawer.Screen name="Register" component={Register} />
             <Drawer.Screen name="Revistar Reserva" component={RevisarReserva} />
             <Drawer.Screen name="Lista de Espera" component={ListaDeEspera} />
+            <Drawer.Screen name="Verificar Inicio de Sesion" component={VerificarInicioSesion} />
+            <Drawer.Screen name="Verificar tu reserva" component={VerificarReserva} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>
