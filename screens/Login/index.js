@@ -1,9 +1,11 @@
 import { useState, useContext } from 'react';
-import { Text, View, TextInput, Image } from 'react-native';
-import GlobalContext from '../../services/GlobalContext';
+import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-paper';
+import GlobalContext from '../../services/GlobalContext';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
+import CustomInput from '../../components/CustomInput';
+
 export default ({ navigation }) => {
   const [Inputlogin, OnchangeLogin] = useState('');
   const [Inputpassword, OnchangePassword] = useState('');
@@ -24,27 +26,15 @@ export default ({ navigation }) => {
         source={require('../../assets/logodbt.png')}
       />
       <View>
-        <Text style={{ marginLeft: 40, color: '#544EEB' }}>
-          Correo electrónico
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={OnchangeLogin}
-          value={Inputlogin}
-        />
-        <Text style={{ marginLeft: 40, color: '#544EEB' }}>Contraseña</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={OnchangePassword}
-          value={Inputpassword}
-        />
+        <CustomInput label="Correo electrónico" value={Inputlogin} onChangeText={OnchangeLogin} />
+        <CustomInput label="Contraseña" value={Inputpassword} onChangeText={OnchangePassword} />
         <View style={buttons.containerbutton}>
           <Button mode="elevated" onPress={handleLogin} style={buttons.button}>
             Login
           </Button>
 
           <Button mode="elevated" onPress={navigate} style={buttons.button}>
-            Registrase
+            Register
           </Button>
         </View>
       </View>
