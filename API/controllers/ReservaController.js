@@ -23,7 +23,7 @@ class ReservaController {
     getCantReservas = async (req,res) => {
         try {
             const reservas = await Reserva.findAll({ attributes: [ [Sequelize.literal('DATE_FORMAT(fecha, "%Y-%m-%d")'), 'fecha'], 
-            // Formato de fecha "dd/mm/yyyy" 
+            // Formato de fecha "yyyy-mm-dd" 
             [Sequelize.literal('COUNT(*)'), 'cant'] 
             // Contar el número de reservas 
           ],
@@ -55,7 +55,7 @@ class ReservaController {
         try {
             const { id } = req.params;
             const reservasTotales = await Reserva.findAll({ attributes: [ [Sequelize.literal('DATE_FORMAT(fecha, "%Y-%m-%d")'), 'fecha'], 
-            // Formato de fecha "dd/mm/yyyy" 
+            // Formato de fecha "yyyy-mm-dd" 
             [Sequelize.literal('COUNT(*)'), 'cant'] 
             // Contar el número de reservas 
           ],
