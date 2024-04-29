@@ -1,8 +1,9 @@
 class ListaReservaController {
     constructor() { }
-
+// Cambiar nombre a Lista de Espera
     createListaReserva = async (req,res) => {
         try {
+            
             res.status(200).send({ success: true, message: "User" });
 
         }

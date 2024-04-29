@@ -38,7 +38,7 @@ class Formateador {
             // Buscar cantidad de reservas totales para la fecha actual 
             const reservaTotal = reservasTotales.find(reserva =>reserva.dataValues.fecha === fecha ); 
             // Crear objeto con los datos combinados 
-            const objeto = { fecha: fecha, reserva: reservaEnFecha || null, cant_dias: reservaTotal ? reservaTotal.dataValues.cant : 0 }; 
+            const objeto = { fecha: fecha, reserva: reservaEnFecha || null, cant_pers_dia: reservaTotal ? reservaTotal.dataValues.cant : 0 }; 
             // Agregar objeto al resultado
              resultado.push(objeto); }); 
              
