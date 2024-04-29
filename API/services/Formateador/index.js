@@ -2,14 +2,15 @@ class Formateador {
     constructor() {}
     
     crearFechas() {
-        const formatDate= (date)=> {
-            const year = date.getFullYear(); // Get full year
-            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (zero-based) and pad with leading zero if necessary
-            const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if necessary
-
-    return `${year}-${month}-${day}`;
-        }
         
+        const formatDate= (date)=> {
+            const year = date.getFullYear(); // Traer Año Completo
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Traer Mes y agregarle el 0 si hace falta
+            const day = date.getDate().toString().padStart(2, '0'); // Traer Dia y agregarle el 0 si hace falta
+
+                return `${year}-${month}-${day}`;
+        }
+
         const fechasArray = [];
 
         for(let i = 0; i < 15; i++){
@@ -20,14 +21,14 @@ class Formateador {
         const soloSemana = fechasArray.filter(function(element,index){
             const dt = new Date(element);
             return (dt.getDay() != 0 && dt.getDay() != 6);
-        }).map(date => formatDate(date)); // Format dates as yyyy/mm/dd
+        }).map(date => formatDate(date)); // Formatear fecha como  yyyy-mm-dd
     
         return soloSemana;
     }
 
+
+
     formatearFechas(fechas, reservas, reservasTotales) {
-
-
 
         const resultado = []; 
         // Iterar sobre las fechas 
