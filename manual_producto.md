@@ -9,7 +9,7 @@ BDToficina es una plataforma innovadora diseñada para simplificar la reserva de
 BDToficina se basa en una arquitectura cliente-servidor altamente escalable y robusta. Los dispositivos móviles actúan como clientes que se conectan a un servidor centralizado a través de una API RESTful, garantizando un rendimiento óptimo y una experiencia de usuario fluida.
 
 **Tecnologías Utilizadas:**  
-La aplicación móvil de BDToficina está desarrollada utilizando las últimas tecnologías nativas específicas de cada plataforma, como Swift para iOS y Kotlin para Android. Se implementan protocolos de seguridad avanzados para proteger la integridad y confidencialidad de los datos del usuario durante la comunicación con el servidor.
+La aplicación móvil de BDToficina está desarrollada utilizando React Native, una tecnología que permite el desarrollo de aplicaciones móviles utilizando JavaScript y React, lo que proporciona una experiencia nativa en ambas plataformas, iOS y Android. Se implementan protocolos de seguridad avanzados para proteger la integridad y confidencialidad de los datos del usuario durante la comunicación con el servidor.
 
 ## Requisitos del Sistema
 **Especificaciones Técnicas:**  
