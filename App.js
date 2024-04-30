@@ -14,6 +14,7 @@ import ListaDeEspera from './screens/ListaDeEspera';
 import VerificarInicioSesion from './screens/VerificarInicioSesion';
 import VerificarReserva from './screens/VerificarReserva';
 import EnvioPassword from './screens/EnvioPassword';
+import ReservaConfirmada from './screens/ReservaConfirmada';
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -37,6 +38,7 @@ export default function App() {
             <Drawer.Screen name="Verificar Inicio de Sesion" component={VerificarInicioSesion} />
             <Drawer.Screen name="Verificar tu reserva" component={VerificarReserva} />
             <Drawer.Screen name="Envío de contraseña" component={EnvioPassword} />
+            <Drawer.Screen name="Tu reserva fue confirmada" component={ReservaConfirmada} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>
