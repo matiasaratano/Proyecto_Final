@@ -6,8 +6,8 @@ const buttons = StyleSheet.create({
     alignSelf: 'center',
   },
   button: {
-    marginHorizontal: 5,
-    marginTop: 20,
+    marginHorizontal: 15,
+    marginTop: 40,
   },
 
   blackButton: {

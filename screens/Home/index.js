@@ -6,6 +6,8 @@ import TextoComun from '../../components/TextoComun';
 
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
+import Reserva from '../../components/Reserva';
+import ReservaFlatlist from '../../GestionPresencialidad/components/ReservaFlatlist';
 
 export default ({ navigation }) => {
   const [Registerlogin, OnchangeRegisterLogin] = useState();
@@ -22,16 +24,20 @@ export default ({ navigation }) => {
     <View style={styles.container}>
       <View>
         <TextoEncerrado
-          text="Revisemos los datos de tu reserva!"
+          text="Agregar Logo o info de la empresa que sea util para el HOME"
           fontSize={18}
         />
         {/* Falta codear como traer datos de la reserva */}
-        <View>
-          <TextoComun text="Reserva de escritorio." fontSize={16} />
-          <TextoComun text="Día:" fontSize={14} />
-          <TextoComun text="Horario:" fontSize={14} />
-          <TextoComun text="Dirección:" fontSize={14} />
-        </View>
+
+        {/* <ReservaFlatlist></ReservaFlatlist> */}
+
+        <Reserva
+          data={{
+            fecha: '29/04/2024',
+            reserva: { id: 1, fecha: '29/04/2024', vianda: true },
+            cant_dias: 1,
+          }}
+        ></Reserva>
         <View style={buttons.containerbutton}>
           <Button
             mode="contained"
@@ -40,9 +46,12 @@ export default ({ navigation }) => {
           >
             Confirmar
           </Button>
-          <Button mode="contained" onPress={navigate} style={buttons.button}>
-            Cancelar
-          </Button>
+        </View>
+        <View>
+          <TextoEncerrado
+            text="ATENCIÓN! Si es imprescindible que visites la oficina, por favor comunícate con RRHH para buscar una solución."
+            fontSize={18}
+          />
         </View>
       </View>
     </View>

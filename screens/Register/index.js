@@ -51,14 +51,14 @@ export default ({ navigation }) => {
         />
         <View style={buttons.containerbutton}>
           <Button
-            mode="elevated"
+            mode="contained"
             onPress={handleRegister}
             style={buttons.button}
           >
             Registrar
           </Button>
 
-          <Button mode="elevated" onPress={navigate} style={buttons.button}>
+          <Button mode="contained" onPress={navigate} style={buttons.button}>
             Volver
           </Button>
         </View>

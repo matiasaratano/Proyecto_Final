@@ -8,7 +8,8 @@ const TextoEncerrado = ({ text, fontSize }) => (
       backgroundColor: '#f8f4fa',
       padding: 10,
       borderRadius: 10,
-      width: '80%',
+      maxWidth: '90%',
+
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -18,9 +19,17 @@ const TextoEncerrado = ({ text, fontSize }) => (
       shadowRadius: 3.84,
       elevation: 5,
       marginTop: 20,
+      // justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
     }}
   >
-    <Text style={[styles.titleMedium, { fontSize, color: '#6a4fa7' }]}>
+    <Text
+      style={[
+        styles.titleMedium,
+        { fontSize, color: '#6a4fa7', textAlign: 'center' },
+      ]}
+    >
       {text}
     </Text>
   </View>

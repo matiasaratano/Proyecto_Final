@@ -43,7 +43,7 @@ const EnvioPassword = () => {
   return (
     <View style={styles.container}>
       <TextoEncerrado
-        text="Por favor, introduce tu dirección de correo electrónico alternativo o personal a continuaciónpara que podamos enviarte la información de inicio de sesión."
+        text="Por favor, introduce tu dirección de correo electrónico alternativo o personal a continuación para que podamos enviarte la información de inicio de sesión."
         fontSize={18}
       />
       <View style={{ height: 20 }} />
@@ -52,7 +52,7 @@ const EnvioPassword = () => {
         value={email}
         onChangeText={setEmail}
       />
-      <Button mode="elevated" style={buttons.button} onPress={handleEnviar}>
+      <Button mode="contained" style={buttons.button} onPress={handleEnviar}>
         Volver al inicio
       </Button>
     </View>

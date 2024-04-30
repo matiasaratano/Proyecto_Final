@@ -20,20 +20,28 @@ export default ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Image
         style={{ alignSelf: 'center', width: 200, height: 200 }}
         source={require('../../assets/logodbt.png')}
       />
       <View>
-        <CustomInput label="Correo electrónico" value={Inputlogin} onChangeText={OnchangeLogin} />
-        <CustomInput label="Contraseña" value={Inputpassword} onChangeText={OnchangePassword} />
+        <CustomInput
+          label="Correo electrónico"
+          value={Inputlogin}
+          onChangeText={OnchangeLogin}
+        />
+        <CustomInput
+          label="Contraseña"
+          value={Inputpassword}
+          onChangeText={OnchangePassword}
+        />
         <View style={buttons.containerbutton}>
-          <Button mode="elevated" onPress={handleLogin} style={buttons.button}>
+          <Button mode="contained" onPress={handleLogin} style={buttons.button}>
             Login
           </Button>
 
-          <Button mode="elevated" onPress={navigate} style={buttons.button}>
+          <Button mode="contained" onPress={navigate} style={buttons.button}>
             Register
           </Button>
         </View>

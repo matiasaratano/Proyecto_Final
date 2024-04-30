@@ -49,14 +49,14 @@ export default function VerificarReserva({ navigation }) {
 
         <View style={buttons.containerbutton}>
           <Button
-            mode="elevated"
+            mode="contained"
             onPress={handleViandasPress}
             style={buttons.button}
           >
             Viandas
           </Button>
           <Button
-            mode="elevated"
+            mode="contained"
             onPress={navigateToLogin}
             style={buttons.button}
           >

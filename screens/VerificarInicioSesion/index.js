@@ -19,7 +19,7 @@ export default ({ navigation }) => {
         />
         <View style={buttons.containerbutton}>
           <Button
-            mode="elevated"
+            mode="contained"
             onPress={navigateToLogin}
             style={[buttons.button, { alignSelf: 'center' }]}
           >
