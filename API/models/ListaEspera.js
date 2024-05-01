@@ -2,9 +2,9 @@ import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import { ErrorMessage } from "../helpers/ErrorMessages.js";
 
-class ListaReserva extends Model { }
+class ListaEspera extends Model { }
 
-ListaReserva.init({
+ListaEspera.init({
     fecha: {
         type: DataTypes.DATEONLY,
         allowNull: false,
@@ -15,7 +15,7 @@ ListaReserva.init({
     },
 }, {
     sequelize: connection,
-    modelName: "ListaReserva",
+    modelName: "ListaEspera",
 })
 
-export default ListaReserva
+export default ListaEspera

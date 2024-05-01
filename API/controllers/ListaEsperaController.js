@@ -1,7 +1,7 @@
-class ListaReservaController {
+class ListaEsperaController {
     constructor() { }
 
-    createListaReserva = async (req,res) => {
+    createListaEspera = async (req,res) => {
         try {
             res.status(200).send({ success: true, message: "User" });
 
@@ -12,19 +12,7 @@ class ListaReservaController {
     }
 
 
-    getAllListaReserva = async (req,res) => {
-        try {
-            res.status(200).send({ success: true, message: "User" });
-
-        }
-        catch (error) {
-            res.status(400).send({ success: false, message: error.message })
-        }
-    }
-
-
-
-    getListaReservaById = async (req,res) => {
+    getAllListaEspera = async (req,res) => {
         try {
             res.status(200).send({ success: true, message: "User" });
 
@@ -36,7 +24,19 @@ class ListaReservaController {
 
 
 
-    updateListaReserva = async (req,res) => {
+    getListaEsperaById = async (req,res) => {
+        try {
+            res.status(200).send({ success: true, message: "User" });
+
+        }
+        catch (error) {
+            res.status(400).send({ success: false, message: error.message })
+        }
+    }
+
+
+
+    updateListaEspera = async (req,res) => {
         try {
             res.status(200).send({ success: true, message: "User" });
 
@@ -47,7 +47,7 @@ class ListaReservaController {
     }
 
     
-    deleteListaReserva = async (req,res) => {
+    deleteListaEspera = async (req,res) => {
         try {
             res.status(200).send({ success: true, message: "User" });
 
@@ -59,4 +59,4 @@ class ListaReservaController {
 
 }
 
-export default ListaReservaController
+export default ListaEsperaController

@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import User from "./user.js";
-import ListaReserva from "./ListaReserva.js";
+import ListaEspera from "./ListaEspera.js";
 import { ErrorMessage } from "../helpers/ErrorMessages.js";
 
 class UserXLista extends Model { }
@@ -21,7 +21,7 @@ UserXLista.init({
     fecha: {
         type: DataTypes.DATEONLY,
         references: {
-            model: ListaReserva,
+            model: ListaEspera,
             key: "id",
         },
         validate: {
