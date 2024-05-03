@@ -1,6 +1,6 @@
 import ListaEspera from "./ListaEspera.js";
 import Reserva from "./Reserva.js";
-import User from "./user.js";
+import User from "./User.js";
 import UserXLista from "./UserXLista.js";
 
 User.hasMany(Reserva)
