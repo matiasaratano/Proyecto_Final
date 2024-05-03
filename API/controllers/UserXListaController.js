@@ -34,14 +34,6 @@ class UserXListaController {
         }
     }
 
-    async updateUserXLista(req, res) {
-        try {
-            const result = await userXListaService.updateUserXLista(req.params.id, req.body);
-            res.status(200).send(result);
-        } catch (error) {
-            res.status(400).send({ success: false, message: error.message });
-        }
-    }
 
     async deleteUserXLista(req, res) {
         try {

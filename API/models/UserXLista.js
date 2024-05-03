@@ -1,13 +1,14 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
-import User from "./user.js";
+import User from "./User.js";
 import ListaEspera from "./ListaEspera.js";
 import { ErrorMessage } from "../helpers/ErrorMessages.js";
 
 class UserXLista extends Model { }
 
 UserXLista.init({
-    UserId: {
+    //corregi el nombre de UserId a userId 
+    userId: {
         type: DataTypes.INTEGER(11),
         references: {
             model: User,

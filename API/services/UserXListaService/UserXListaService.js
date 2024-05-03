@@ -22,27 +22,9 @@ class UserXListaService {
         }
     }
 
-    async getAllUserByIdLista(listaEsperaId) {
-        try {
-            const usersInLista = await User.findAll({ include: [{ model: ListaEspera, where: { id: listaEsperaId } }] });
-            return { success: true, data: usersInLista };
-        } catch (error) {
-            throw new Error('Error al obtener usuarios por ID de lista de espera: ' + error.message);
-        }
-    }
 
-    async updateUserXLista(userId, updatedData) {
-        try {
-            const [updatedRowsCount] = await User.update(updatedData, { where: { id: userId } });
-            if (updatedRowsCount === 0) {
-                throw new Error('El usuario no fue encontrado');
-            }
-            const updatedUser = await User.findByPk(userId);
-            return { success: true, data: updatedUser };
-        } catch (error) {
-            throw new Error('Error al actualizar usuario en la lista de espera: ' + error.message);
-        }
-    }
+
+
 
     async deleteUserXLista(userId) {
         try {

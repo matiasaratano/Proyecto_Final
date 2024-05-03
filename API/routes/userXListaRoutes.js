@@ -8,8 +8,7 @@ const userXListaController = new UserXListaController
 //CRUD ROLES
 userXListaRoutes.post("", userXListaController.createUserXLista)
 userXListaRoutes.get("", userXListaController.getAllUserXLista)
-userXListaRoutes.get("/:id", userXListaController.getAllUserByIdLista)
-userXListaRoutes.put("/:id", userXListaController.updateUserXLista)
-userXListaRoutes.delete("", userXListaController.deleteUserXLista)
+userXListaRoutes.delete("/:id", userXListaController.deleteUserXLista)
+
 
 export default userXListaRoutes
