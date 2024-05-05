@@ -15,7 +15,8 @@ export default ({ navigation }) => {
     console.log('Login');
   };
 
-  const navigate = () => {
+
+  const navigateToForgotPassword = () => {
     navigation.navigate('Register');
   };
 
@@ -25,7 +26,7 @@ export default ({ navigation }) => {
         style={{ alignSelf: 'center', width: 200, height: 200 }}
         source={require('../../assets/logodbt.png')}
       />
-      <View>
+      <View style={styles.formContainer}>
         <CustomInput
           label="Correo electrónico"
           value={Inputlogin}
@@ -36,14 +37,15 @@ export default ({ navigation }) => {
           value={Inputpassword}
           onChangeText={OnchangePassword}
         />
-        <View style={buttons.containerbutton}>
+        <View style={styles.buttonContainer}>
           <Button mode="contained" onPress={handleLogin} style={buttons.button}>
             Login
           </Button>
-
-          <Button mode="contained" onPress={navigate} style={buttons.button}>
-            Register
-          </Button>
+          <View style={{ marginTop: 10 }}>
+            <Text onPress={navigateToForgotPassword} style={styles.forgotPassword}>
+              Olvidaste tu contraseña?
+            </Text>
+          </View>
         </View>
       </View>
     </View>
