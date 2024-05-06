@@ -1,19 +1,26 @@
 import User from '../../models/User.js';
+import bcrypt from 'bcrypt';
+import Jwt from 'jsonwebtoken';
 
 class UserService {
     constructor() { }
 
+    async createUser(userData) {
+    try {
+        // Se hashea la contraseña con brycpt
+        const hashedPassword = await bcrypt.hash(userData.userPassword, 6);
 
+        // Se reemplaza la contraseña en texto plano con la contraseña hasheada
+        userData.userPassword = hashedPassword;
 
-    async createUser(userData){
-        try {
-            const newUser = await User.create(userData);
-            return {success: true, data: newUser};
-        }
-        catch (error) {
-            throw new Error('Error al crear el usuario: ' + error.message);
-        }
-    };
+        // Se crea el usuario en la base de datos
+        const newUser = await User.create(userData);
+        return {success: true, data: newUser};
+    }
+    catch (error) {
+        throw new Error('Error al crear el usuario: ' + error.message);
+    }
+};
 
 
     async getAllUsers(){
@@ -74,16 +81,39 @@ class UserService {
     };
 
 
-    
-    login = async (req,res) => {
+    async findByCredentials(email, userPassword) {
         try {
-            res.status(200).send({ success: true, message: "User" });
+            const user = await User.findOne({ where: { email: email } });
+            
+            if (!user) throw new Error("Credenciales incorrectas");
 
+            const isMatch = await bcrypt.compare(userPassword, user.userPassword);
+            
+            if (!isMatch || !user) throw new Error("Credenciales incorrectas");
+
+            return { success: true, data: user };
         }
         catch (error) {
-            res.status(400).send({ success: false, message: error.message })
+            throw new Error('Error al buscar el usuario: ' + error.message);
         }
     }
+
+        generateAuthToken(user) {
+                const token = Jwt.sign({id: user.userId, email: user.email, role: user.role}, process.env.CLAVE_SECRETA);
+                return token ;
+        }
+
+        async login (userData) {
+            try {
+               const user = await this.findByCredentials(userData.email, userData.userPassword);
+               const token = this.generateAuthToken(user.data);
+               return { success: true, data: token };
+        
+            }
+            catch (error) {
+                throw new Error('Error al iniciar sesión: ' + error.message);
+            }
+        }
 
 }
 

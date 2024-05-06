@@ -19,7 +19,7 @@ User.init(
       },
     },
     userPassword: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(250),
       allowNull: false,
       validate: {
         notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
