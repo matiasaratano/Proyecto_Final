@@ -6,8 +6,20 @@ class User extends Model { }
 
 User.init(
   {
+    userId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    fullName: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      validate: {
+        notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
+      },
+    },
     userPassword: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(250),
       allowNull: false,
       validate: {
         notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
@@ -19,6 +31,21 @@ User.init(
       validate: {
         notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
         isEmail: { args: true, msg: ErrorMessage.NOT_EMAIL },
+      },
+    },
+    // bossId: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   references: {
+    //     model: 'User', 
+    //     key: 'userId', 
+    //   }
+    // },
+    role: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      validate: {
+        notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
       },
     },
   },
