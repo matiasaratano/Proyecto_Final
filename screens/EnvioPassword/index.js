@@ -8,9 +8,8 @@ import TextoEncerrado from '../../components/TextoEncerrado';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 
-const EnvioPassword = () => {
+export default ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const navigation = useNavigation();
 
   const handleEnviar = () => {
     fetch('URL DEL ENDPOINT DE LA API', {
@@ -59,4 +58,4 @@ const EnvioPassword = () => {
   );
 };
 
-export default EnvioPassword;
+

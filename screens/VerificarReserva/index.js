@@ -6,7 +6,7 @@ import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
 
-export default function VerificarReserva({ navigation }) {
+export default ({ navigation }) => {
   const navigateToLogin = () => {
     navigation.navigate('Login');
   };
