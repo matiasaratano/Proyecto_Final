@@ -12,10 +12,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import RevisarReserva from './screens/RevisarReserva';
 import ListaDeEspera from './screens/ListaDeEspera';
 import VerificarInicioSesion from './screens/VerificarInicioSesion';
-import VerificarReserva from './screens/VerificarReserva';
 import EnvioPassword from './screens/EnvioPassword';
 import ReservaConfirmada from './screens/ReservaConfirmada';
 import Home from './screens/Home';
+import VerificarReserva from './screens/VerificarReserva';
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -40,7 +40,7 @@ export default function App() {
               name="Verificar Inicio de Sesion"
               component={VerificarInicioSesion}
             />
-            <Drawer.Screen
+                        <Drawer.Screen
               name="Verificar tu reserva"
               component={VerificarReserva}
             />

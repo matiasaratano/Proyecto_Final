@@ -4,10 +4,11 @@ import { Text, Button } from 'react-native-paper';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
 
+
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import Reserva from '../../components/Reserva';
-import ReservaFlatlist from '../../GestionPresencialidad/components/ReservaFlatlist';
+
 
 export default ({ navigation }) => {
   const [Registerlogin, OnchangeRegisterLogin] = useState();

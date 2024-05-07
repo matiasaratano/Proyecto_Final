@@ -5,7 +5,7 @@ import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 
-export default function ReservaConfirmada({ navigation }) {
+export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TextoEncerrado text="Reserva confirmada!" fontSize={18} />
