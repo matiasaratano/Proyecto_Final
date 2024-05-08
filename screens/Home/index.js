@@ -1,25 +1,28 @@
-import { useState, useContext } from 'react';
+import { useContext, useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, TextInput, ImageBackground } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
-
-
+import ReservaFlatlist from '../../components/ReservaFlatList'
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import Reserva from '../../components/Reserva';
-
+import ReservaService from '../../services/reservas.js'
+import GlobalContext from '../../services/GlobalContext';
 
 export default ({ navigation }) => {
-  const [Registerlogin, OnchangeRegisterLogin] = useState();
-  const [RegisterEmail, OnchangeRegisterEmail] = useState();
+  const {user, setUser, listaAReservar, setListaAReservar , reservas , setReservas} = useContext(GlobalContext)
 
-  const handleRegister = () => {
-    console.log('Register');
-  };
-  const navigate = () => {
-    navigation.navigate('Login');
-  };
+useFocusEffect(
+  useCallback(() => {
+    ReservaService.getReservasByUser(1).then(data =>{
+      setReservas(data.message)
+    }).catch(error => {
+      console.error('Error fetching mazos:', error)
+    })
+  }, [])
+)
 
   return (
     <View style={styles.container}>
@@ -30,19 +33,12 @@ export default ({ navigation }) => {
         />
         {/* Falta codear como traer datos de la reserva */}
 
-        {/* <ReservaFlatlist></ReservaFlatlist> */}
+        <ReservaFlatlist navigation={navigation} reservas={reservas}/>
 
-        <Reserva
-          data={{
-            fecha: '29/04/2024',
-            reserva: { id: 1, fecha: '29/04/2024', vianda: true },
-            cant_dias: 1,
-          }}
-        ></Reserva>
         <View style={buttons.containerbutton}>
           <Button
             mode="contained"
-            onPress={handleRegister}
+            onPress={{}}
             style={buttons.button}
           >
             Confirmar
