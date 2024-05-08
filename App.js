@@ -20,9 +20,11 @@ import VerificarReserva from './screens/VerificarReserva';
 export default function App() {
   const Drawer = createDrawerNavigator();
   const [user, setUser] = useState();
+  const [reservas, setReservas] = useState();
+  const [listaAReservar, setListaAReservar] = useState([]);
 
   return (
-    <GlobalContext.Provider value={{ user, setUser }}>
+    <GlobalContext.Provider value={{ user, setUser, listaAReservar, setListaAReservar , reservas, setReservas}}>
       <NavigationContainer>
         {user ? (
           <Drawer.Navigator>
