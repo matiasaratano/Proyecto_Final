@@ -19,12 +19,12 @@ const Reserva = ({ data, navigation }) => {
             onPress={{}}
             title={data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
             color="#841584"
+            style={styles.button}
           />
         ) : (
           <Button
             onPress={{}}
             title={data.reserva ? 'Reservado' : 'Completo'}
-            color="#841584"
           />
         )
       }
@@ -34,7 +34,12 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Cancelar
         data.reserva ? (
-          <Button onPress={{}} title="Cancelar" color="#841584" />
+          <Button
+            mode="elevated"
+            onPress={() => {}}
+            title="Cancelar"
+            color="#841584"
+          />
         ) : (
           <Text></Text>
         )
@@ -50,12 +55,7 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Lista de Espera
         !data.reserva && completo ? (
-          <Button
-            onPress={() => {}}
-            title="Lista de Espera"
-            color="#841584"
-            accessibilityLabel="Learn more about this purple button"
-          />
+          <Button onPress={() => {}} title="Lista de Espera" color="#841584" />
         ) : (
           <Text></Text>
         )
@@ -67,11 +67,13 @@ const Reserva = ({ data, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: '#fff',
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 20,
+    paddingRight: 5,
+    paddingLeft: 5,
   },
 });
 
