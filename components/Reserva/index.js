@@ -49,11 +49,12 @@ const Reserva = ({ data, navigation }) => {
             onPress={handleReserva}
             title={data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
             color={elegido?"#841584" : 'grey'}
-          />
+            style={styles.button}          />
         ) : (
           <Button
             onPress={handleReserva}
             title={data.reserva ? 'Reservado' : 'Completo'}
+
             color={elegido?"#841584" : 'grey'}
           />
         )
@@ -64,7 +65,12 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Cancelar
         data.reserva ? (
-          <Button onPress={{}} title="Cancelar" color="#841584" />
+          <Button
+            mode="elevated"
+            onPress={() => {}}
+            title="Cancelar"
+            color="#841584"
+          />
         ) : (
           <Text></Text>
         )
@@ -80,12 +86,7 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Lista de Espera
         !data.reserva && completo ? (
-          <Button
-            onPress={() => {}}
-            title="Lista de Espera"
-            color="#841584"
-            accessibilityLabel="Learn more about this purple button"
-          />
+          <Button onPress={() => {}} title="Lista de Espera" color="#841584" />
         ) : (
           <Text></Text>
         )
@@ -97,11 +98,13 @@ const Reserva = ({ data, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: '#fff',
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 20,
+    paddingRight: 5,
+    paddingLeft: 5,
   },
 });
 
