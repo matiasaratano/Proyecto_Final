@@ -1,6 +1,7 @@
-import {Reserva} from '../models/index.js'
+import {Reserva, UserXLista} from '../models/index.js'
 import { Sequelize } from 'sequelize';
 import Formateador from '../services/Formateador/index.js';
+
 
 const formateador = new Formateador
 
@@ -12,7 +13,7 @@ class ReservaController {
             const { fecha, vianda, userId } = req.body;
             
             // Verificamso la disponibilidad de asientos en la oficina
-            const reservasExistente = await Reserva.count();
+            const reservasExistente = await Reserva.count({where:{fecha:fecha}});
             if (reservasExistente >= 24) {
                 return res.status(400).send({ success: false, message: 'No hay asientos disponibles para realizar la reserva.' });
             }
@@ -101,8 +102,20 @@ class ReservaController {
 
     updateReserva = async (req,res) => {
         try {
+            
             res.status(200).send({ success: true, message: "User" });
 
+        }
+        catch (error) {
+            res.status(400).send({ success: false, message: error.message })
+        }
+    }
+    updateViandaReserva = async (req,res) => {
+        try {
+            const {id} = req.params
+            const updatedReserva = await Reserva.update({vianda: true},{where: {id:id}})
+            if(!updatedReserva) throw new Error("No se pudo modificar vianda")
+            res.status(200).send({ success: true, message: updatedReserva });
         }
         catch (error) {
             res.status(400).send({ success: false, message: error.message })
@@ -113,17 +126,35 @@ class ReservaController {
 
     deleteReserva = async (req, res) => {
         try {
-            const { reservaId } = req.params; // Obtenemos el ID de la reserva de los parámetros de la solicitud
+            const {id} = req.params; // Obtenemos el ID de la reserva de los parámetros de la solicitud
             
             // Verificamos si la reserva existe
-            const reserva = await Reserva.findByPk(reservaId);
+            const reserva = await Reserva.findByPk(id);
+            console.log(reserva)
             if (!reserva) {
-                return res.status(404).send({ success: false, message: 'Reserva no encontrada.' });
+                return res.status(400).send({ success: false, message: 'Reserva no encontrada.' });
             }
     
             // Eliminamos la reserva
-            await reserva.destroy();
+            await Reserva.destroy({ where: { id: id } });
     
+
+            //Buscamos la persona que ingreso primera a la lista de espera si existe
+            const userlista = await UserXLista.findOne({
+                where: {
+                  fecha: reserva.fecha,
+                },
+                order: [['ingreso', 'ASC']],
+              })
+              console.log(userlista)
+              if(userlista){
+                //Creamos Reserva para Usuario en Lista de Espera
+                const nuevaReserva = await Reserva.create({fecha:userlista.fecha,vianda: false, UserId:userlista.UserId })
+                console.log(nuevaReserva)
+                //Borramos al Usuario de La Lista de Espera
+                 await UserXLista.destroy({where:{UserId: userlista.UserId, fecha: userlista.fecha} })
+              }
+
             // Enviamos una respuesta de éxito
             res.status(200).send({ success: true, message: 'Reserva eliminada correctamente.' });
         } catch (error) {

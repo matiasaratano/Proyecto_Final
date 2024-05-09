@@ -12,7 +12,7 @@ import ReservaService from '../../services/reservas.js'
 import GlobalContext from '../../services/GlobalContext';
 
 export default ({ navigation }) => {
-  const {user, setUser, listaAReservar, setListaAReservar , reservas , setReservas} = useContext(GlobalContext)
+  const {user, setUser, listaAReservar, setListaAReservar , reservas , setReservas, refresh} = useContext(GlobalContext)
 
 useFocusEffect(
   useCallback(() => {
@@ -21,7 +21,7 @@ useFocusEffect(
     }).catch(error => {
       console.error('Error fetching mazos:', error)
     })
-  }, [])
+  }, [refresh])
 )
 
   return (

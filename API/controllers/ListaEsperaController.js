@@ -1,4 +1,4 @@
-const formateador = new Formateador();
+
 
 class ListaEsperaController {
     constructor() { }
