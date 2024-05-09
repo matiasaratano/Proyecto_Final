@@ -10,7 +10,7 @@ class ReservaController {
 
     createReserva = async (req, res) => {
         try {
-            const { fecha, vianda, userId } = req.body;
+            const { fecha, userId } = req.body;
             
             // Verificamso la disponibilidad de asientos en la oficina
             const reservasExistente = await Reserva.count({where:{fecha:fecha}});
@@ -20,8 +20,8 @@ class ReservaController {
 
             // Creamos reserva si hay espacio
             const reserva = await Reserva.create({
-                fecha,
-                vianda,
+                fecha:fecha,
+                vianda: false,
                 UserId: userId
             });
 
@@ -34,6 +34,37 @@ class ReservaController {
         } catch (error) {
             console.error(error);
             res.status(500).send({ success: false, message: 'Error al crear la reserva.' });
+        }
+    }
+    createReservas = async (req, res) => {
+        try {
+            const { fechas, userId } = req.body;
+            const fechasNoRealizadas = []
+            const reservasRealizadas = []
+
+            for(let i = 0 ; i< fechas.length; i++){
+            // Verificamso la disponibilidad de asientos en la oficina , sino se agrega a una lista de fechas que no se pudieron realizar por falta de espacio
+            const reservasExistente = await Reserva.count({where:{fecha:fechas[i]}});
+            if (reservasExistente >= 24) {
+                fechasNoRealizadas.push(fechas[i])
+            }else{
+
+            // Creamos reserva si hay espacio
+            const reserva = await Reserva.create({
+                fecha:fechas[i],
+                vianda: false,
+                UserId: userId
+            });
+            //Agregamos fecha a lista de reservas realizadas Correctamente
+            reservasRealizadas.push(reserva)
+        }
+        }
+            // Se notifica el estado del cierre de la ejecucion
+            res.status(200).send({ success: true, message: 'Reservas realizadas satisfactoriamente.', reservasIncompletas: fechasNoRealizadas, reservasCompletas: reservasRealizadas });
+        
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ success: false, message: 'Error al crear la reserva.'});
         }
     }
 

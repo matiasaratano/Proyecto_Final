@@ -7,6 +7,7 @@ const reservaController = new ReservaController()
 
 //CRUD
 reservaRoutes.post("", reservaController.createReserva)
+reservaRoutes.post("/reservas", reservaController.createReservas)
 reservaRoutes.get("", reservaController.getCantReservas)
 reservaRoutes.get("/:id", reservaController.getReservaById)
 reservaRoutes.get("/user/:id", reservaController.getAllReservasByUser)
