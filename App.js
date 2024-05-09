@@ -22,9 +22,10 @@ export default function App() {
   const [user, setUser] = useState();
   const [reservas, setReservas] = useState();
   const [listaAReservar, setListaAReservar] = useState([]);
+  const [refresh, setRefresh] = useState();
 
   return (
-    <GlobalContext.Provider value={{ user, setUser, listaAReservar, setListaAReservar , reservas, setReservas}}>
+    <GlobalContext.Provider value={{ user, setUser, listaAReservar, setListaAReservar , reservas, setReservas, refresh, setRefresh}}>
       <NavigationContainer>
         {user ? (
           <Drawer.Navigator>

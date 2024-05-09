@@ -11,6 +11,7 @@ reservaRoutes.get("", reservaController.getCantReservas)
 reservaRoutes.get("/:id", reservaController.getReservaById)
 reservaRoutes.get("/user/:id", reservaController.getAllReservasByUser)
 reservaRoutes.put("/:id", reservaController.updateReserva)
+reservaRoutes.put("/vianda/:id", reservaController.updateViandaReserva)
 reservaRoutes.delete("/:id", reservaController.deleteReserva)
 
 export default reservaRoutes
