@@ -7,19 +7,16 @@ const TextoEncerrado = ({ text, fontSize }) => (
     style={{
       backgroundColor: '#f8f4fa',
       padding: 10,
-      borderRadius: 10,
-      maxWidth: '90%',
-
+      borderRadius: 5,
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: 2,
       },
-      shadowOpacity: 0.25,
+      shadowOpacity: 0.1,
       shadowRadius: 3.84,
       elevation: 5,
-      marginTop: 20,
-      // justifyContent: 'center',
+      marginTop: 15,
       alignItems: 'center',
       alignSelf: 'center',
     }}

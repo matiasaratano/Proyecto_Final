@@ -45,7 +45,7 @@ export default ({ navigation }) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             position: 'absolute',
-            bottom: 40,
+            bottom: 30,
             left: 0,
             right: 0,
           },

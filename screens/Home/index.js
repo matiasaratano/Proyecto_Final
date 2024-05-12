@@ -4,25 +4,35 @@ import { View, TextInput, ImageBackground } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
-import ReservaFlatlist from '../../components/ReservaFlatList'
+import ReservaFlatlist from '../../components/ReservaFlatList';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import Reserva from '../../components/Reserva';
-import ReservaService from '../../services/reservas.js'
+import ReservaService from '../../services/reservas.js';
 import GlobalContext from '../../services/GlobalContext';
 
 export default ({ navigation }) => {
-  const {user, setUser, listaAReservar, setListaAReservar , reservas , setReservas, refresh} = useContext(GlobalContext)
+  const {
+    user,
+    setUser,
+    listaAReservar,
+    setListaAReservar,
+    reservas,
+    setReservas,
+    refresh,
+  } = useContext(GlobalContext);
 
-useFocusEffect(
-  useCallback(() => {
-    ReservaService.getReservasByUser(1).then(data =>{
-      setReservas(data.message)
-    }).catch(error => {
-      console.error('Error fetching mazos:', error)
-    })
-  }, [refresh])
-)
+  useFocusEffect(
+    useCallback(() => {
+      ReservaService.getReservasByUser(1)
+        .then((data) => {
+          setReservas(data.message);
+        })
+        .catch((error) => {
+          console.error('Error fetching mazos:', error);
+        });
+    }, [refresh])
+  );
 
   return (
     <View style={styles.container}>
@@ -33,14 +43,10 @@ useFocusEffect(
         />
         {/* Falta codear como traer datos de la reserva */}
 
-        <ReservaFlatlist navigation={navigation} reservas={reservas}/>
+        <ReservaFlatlist navigation={navigation} reservas={reservas} />
 
         <View style={buttons.containerbutton}>
-          <Button
-            mode="contained"
-            onPress={{}}
-            style={buttons.button}
-          >
+          <Button mode="contained" onPress={{}} style={buttons.button}>
             Confirmar
           </Button>
         </View>

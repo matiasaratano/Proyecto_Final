@@ -1,5 +1,5 @@
 const getReservasByUser = (id) => {
-  return fetch(`${process.env.IP_MATIAS}/api/reserva/user/${id}`).then(
+  return fetch(`http://192.168.1.15:8080/api/reserva/user/${id}`).then(
     (res) => {
       if (res.status === 200) {
         return res.json();
@@ -11,7 +11,7 @@ const getReservasByUser = (id) => {
 };
 
 const deleteReserva = (id) => {
-  return fetch(`${process.env.IP_MATIAS}/api/reserva/${id}`, {
+  return fetch(`http://192.168.1.15:8080/api/reserva/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ const deleteReserva = (id) => {
 };
 
 const updateVianda = (id) => {
-  return fetch(`${process.env.IP_MATIAS}/api/reserva/vianda/${id}`, {
+  return fetch(`http://192.168.1.15:8080/api/reserva/vianda/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

@@ -121,9 +121,10 @@ const Reserva = ({ data, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'column' }}>
-        <Text>{day}</Text>
-        <Text>{monthName}</Text>
+      <View>
+        <Text>
+          {day}-{monthName}
+        </Text>
       </View>
 
       {
@@ -132,14 +133,14 @@ const Reserva = ({ data, navigation }) => {
           <Button
             onPress={handleReserva}
             title={data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
-            color={elegido ? '#841584' : 'grey'}
+            color={elegido ? '#663399' : 'grey'}
             style={styles.button}
           />
         ) : (
           <Button
             onPress={handleReserva}
             title={data.reserva ? 'Reservado' : 'Completo'}
-            color={elegido ? '#841584' : 'grey'}
+            color={elegido ? '#663399' : 'grey'}
           />
         )
       }
@@ -153,7 +154,7 @@ const Reserva = ({ data, navigation }) => {
             mode="elevated"
             onPress={cancelarReserva}
             title="Cancelar"
-            color="#841584"
+            color="#663399"
           />
         ) : (
           <Text></Text>
@@ -162,7 +163,7 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Vianda
         data.reserva && !data.reserva.vianda ? (
-          <Button onPress={handleVianda} title="Vianda?" color="#841584" />
+          <Button onPress={handleVianda} title="Vianda?" color="#663399" />
         ) : (
           <Text></Text>
         )
@@ -170,7 +171,7 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Lista de Espera
         !data.reserva && completo ? (
-          <Button onPress={() => {}} title="Lista de Espera" color="#841584" />
+          <Button onPress={() => {}} title="Lista de Espera" color="#663399" />
         ) : (
           <Text></Text>
         )

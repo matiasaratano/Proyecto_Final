@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 20,
+    paddingTop: 10,
   },
   title: {
     textAlign: 'center',
