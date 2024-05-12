@@ -1,9 +1,25 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
+
+const handleViandasPress = () => {
+  Alert.alert(
+    'Aca direccionariamos al form de Capital Humano?',
+    'Mientras aprovecho para probar la funcion Alert que me gusto ;)',
+    [
+      {
+        text: 'Cancelar',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
+    ],
+    { cancelable: false }
+  );
+};
 
 export default ({ navigation }) => {
   return (
@@ -17,7 +33,7 @@ export default ({ navigation }) => {
 
       <Button
         mode="contained"
-        onPress={() => navigation.navigate('FormularioVianda')}
+        onPress={handleViandasPress}
         style={buttons.button}
       >
         Viandas
@@ -49,13 +65,7 @@ export default ({ navigation }) => {
         >
           Contacto
         </Button>
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate('Direccion')}
-          color="black"
-        >
-          Direccion
-        </Button>
+
         <Button
           mode="text"
           onPress={() => navigation.navigate('FAQs')}
@@ -66,4 +76,4 @@ export default ({ navigation }) => {
       </View>
     </View>
   );
-}
+};

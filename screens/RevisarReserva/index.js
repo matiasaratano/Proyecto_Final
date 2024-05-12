@@ -11,11 +11,11 @@ export default ({ navigation }) => {
   const [Registerlogin, OnchangeRegisterLogin] = useState();
   const [RegisterEmail, OnchangeRegisterEmail] = useState();
 
-  const handleRegister = () => {
-    console.log('Register');
+  const navigateConfirm = () => {
+    navigation.navigate('Tu reserva fue confirmada');
   };
-  const navigate = () => {
-    navigation.navigate('Login');
+  const navigateHome = () => {
+    navigation.navigate('Home');
   };
 
   return (
@@ -35,12 +35,16 @@ export default ({ navigation }) => {
         <View style={buttons.containerbutton}>
           <Button
             mode="contained"
-            onPress={handleRegister}
+            onPress={navigateConfirm}
             style={buttons.button}
           >
             Confirmar
           </Button>
-          <Button mode="contained" onPress={navigate} style={buttons.button}>
+          <Button
+            mode="contained-tonal"
+            onPress={navigateHome}
+            style={buttons.button}
+          >
             Cancelar
           </Button>
         </View>

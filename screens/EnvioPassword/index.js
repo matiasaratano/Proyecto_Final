@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 import CustomInput from '../../components/CustomInput';
 import TextoEncerrado from '../../components/TextoEncerrado';
 
@@ -10,6 +9,10 @@ import buttons from '../../styles/buttons';
 
 export default ({ navigation }) => {
   const [email, setEmail] = useState('');
+
+  const handleVolver = () => {
+    navigation.navigate('Login');
+  };
 
   const handleEnviar = () => {
     fetch('URL DEL ENDPOINT DE LA API', {
@@ -51,11 +54,18 @@ export default ({ navigation }) => {
         value={email}
         onChangeText={setEmail}
       />
-      <Button mode="contained" style={buttons.button} onPress={handleEnviar}>
-        Volver al inicio
-      </Button>
+      <View style={buttons.containerbutton}>
+        <Button mode="contained" style={buttons.button} onPress={handleEnviar}>
+          Enviar
+        </Button>
+        <Button
+          mode="contained-tonal"
+          style={buttons.button}
+          onPress={handleVolver}
+        >
+          Volver
+        </Button>
+      </View>
     </View>
   );
 };
-
-

@@ -7,7 +7,7 @@ const buttons = StyleSheet.create({
   },
   button: {
     marginHorizontal: 15,
-    marginTop: 40,
+    marginTop: 20,
   },
 
   blackButton: {

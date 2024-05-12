@@ -56,7 +56,7 @@ export default ({ navigation }) => {
             Viandas
           </Button>
           <Button
-            mode="contained"
+            mode="contained-tonal"
             onPress={navigateToLogin}
             style={buttons.button}
           >
@@ -66,4 +66,4 @@ export default ({ navigation }) => {
       </View>
     </View>
   );
-}
+};

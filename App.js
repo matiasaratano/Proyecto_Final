@@ -7,7 +7,7 @@ import Login from './screens/Login';
 import Reservar from './screens/Reservar';
 import MisReservas from './screens/MisReservas';
 import MiPerfil from './screens/MiPerfil';
-import Register from './screens/Register';
+// import Register from './screens/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import RevisarReserva from './screens/RevisarReserva';
 import ListaDeEspera from './screens/ListaDeEspera';
@@ -25,7 +25,18 @@ export default function App() {
   const [refresh, setRefresh] = useState();
 
   return (
-    <GlobalContext.Provider value={{ user, setUser, listaAReservar, setListaAReservar , reservas, setReservas, refresh, setRefresh}}>
+    <GlobalContext.Provider
+      value={{
+        user,
+        setUser,
+        listaAReservar,
+        setListaAReservar,
+        reservas,
+        setReservas,
+        refresh,
+        setRefresh,
+      }}
+    >
       <NavigationContainer>
         {user ? (
           <Drawer.Navigator>
@@ -36,14 +47,14 @@ export default function App() {
         ) : (
           <Drawer.Navigator>
             <Drawer.Screen name="Login" component={Login} />
-            <Drawer.Screen name="Register" component={Register} />
+            {/* <Drawer.Screen name="Register" component={Register} /> */}
             <Drawer.Screen name="Revistar Reserva" component={RevisarReserva} />
             <Drawer.Screen name="Lista de Espera" component={ListaDeEspera} />
             <Drawer.Screen
               name="Verificar Inicio de Sesion"
               component={VerificarInicioSesion}
             />
-                        <Drawer.Screen
+            <Drawer.Screen
               name="Verificar tu reserva"
               component={VerificarReserva}
             />

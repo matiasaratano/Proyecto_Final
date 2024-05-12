@@ -47,6 +47,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontWeight: 'bold',
   },
+  forgotPassword: {
+    color: 'blue',
+    textAlign: 'center',
+
+    marginTop: 20,
+  },
 });
 
 export default styles;
