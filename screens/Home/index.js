@@ -34,23 +34,38 @@ export default ({ navigation }) => {
     }, [refresh])
   );
 
-  const confirmarReserva = () =>
-    Alert.alert(
-      'Confirmacion de Reserva',
-      'Seguro quieres Confirmar la Reserva?',
-      [
-        {
-          text: 'Volver',
-          onPress: () => console.log('Volver Pressed'),
-          style: 'cancel',
-        },
-        { text: 'OK, Confirmar', onPress: handleConfirmacion },
-      ]
-    );
-
-    const handleConfirmacion = () =>{
-      navigation.navigate('Revisar Reserva', {fechas: listaAReservar})
+  const confirmarReserva = () => {
+    if (listaAReservar.length === 0) {
+      Alert.alert(
+        'No hay reservas seleccionadas',
+        'Por favor, selecciona una reserva antes de confirmar.',
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ]
+      );
+    } else {
+      Alert.alert(
+        'Confirmacion de Reserva',
+        'Seguro quieres Confirmar la Reserva?',
+        [
+          {
+            text: 'Volver',
+            onPress: () => console.log('Volver Pressed'),
+            style: 'cancel',
+          },
+          { text: 'OK, Confirmar', onPress: handleConfirmacion },
+        ]
+      );
     }
+  };
+
+  const handleConfirmacion = () => {
+    navigation.navigate('Revisar Reserva', {fechas: listaAReservar});
+  };
+
   return (
     <View style={styles.container}>
       <View>
