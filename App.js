@@ -23,6 +23,8 @@ export default function App() {
   const [reservas, setReservas] = useState();
   const [listaAReservar, setListaAReservar] = useState([]);
   const [refresh, setRefresh] = useState();
+  const [clearElegido, setClearElegido] = useState();
+
 
   return (
     <GlobalContext.Provider
@@ -35,6 +37,8 @@ export default function App() {
         setReservas,
         refresh,
         setRefresh,
+        clearElegido, 
+        setClearElegido,
       }}
     >
       <NavigationContainer>
@@ -48,7 +52,7 @@ export default function App() {
           <Drawer.Navigator>
             <Drawer.Screen name="Login" component={Login} />
             {/* <Drawer.Screen name="Register" component={Register} /> */}
-            <Drawer.Screen name="Revistar Reserva" component={RevisarReserva} />
+            <Drawer.Screen name="Revisar Reserva" component={RevisarReserva} />
             <Drawer.Screen name="Lista de Espera" component={ListaDeEspera} />
             <Drawer.Screen
               name="Verificar Inicio de Sesion"

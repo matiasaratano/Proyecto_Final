@@ -5,23 +5,28 @@ import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 
-const handleViandasPress = () => {
-  Alert.alert(
-    'Aca direccionariamos al form de Capital Humano?',
-    'Mientras aprovecho para probar la funcion Alert que me gusto ;)',
-    [
-      {
-        text: 'Cancelar',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
-    ],
-    { cancelable: false }
-  );
-};
 
 export default ({ navigation }) => {
+
+  const navigateHome = () => {
+
+    navigation.navigate('Home');
+  };
+  const handleViandasPress = () => {
+    Alert.alert(
+      'Aca direccionariamos al form de Capital Humano?',
+      'Mientras aprovecho para probar la funcion Alert que me gusto ;)',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false }
+    );
+  };
   return (
     <View style={styles.container}>
       <TextoEncerrado text="Reserva confirmada!" fontSize={18} />
@@ -37,6 +42,13 @@ export default ({ navigation }) => {
         style={buttons.button}
       >
         Viandas
+      </Button>
+      <Button
+        mode="contained"
+        onPress={navigateHome}
+        style={buttons.button}
+      >
+        Volver
       </Button>
       <View
         style={[
