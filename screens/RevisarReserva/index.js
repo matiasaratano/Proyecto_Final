@@ -1,18 +1,43 @@
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { useContext, useState, useCallback } from 'react';
 import TextoEncerrado from '../../components/TextoEncerrado';
-import TextoComun from '../../components/TextoComun';
-
+import ConfirmarReservasFlatlist from '../../components/ConfirmarReservasFlatlist';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
+import GlobalContext from '../../services/GlobalContext';
+import ReservaService from '../../services/reservas.js';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default ({ navigation }) => {
+
+
+export default ({ navigation, route }) => {
+const {fechas} = route.params
+
   const navigateConfirm = () => {
-    navigation.navigate('Tu reserva fue confirmada');
-  };
+    ReservaService.createReservas(fechas,1)
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          alert('Reservas Creadas');
+          setClearElegido(!clearElegido)
+          setListaAReservar([])
+          navigation.navigate('Tu reserva fue confirmada');
+          
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching:', error);
+      });
+    };
   const navigateHome = () => {
+    setClearElegido(!clearElegido)
+    setListaAReservar([])
     navigation.navigate('Home');
   };
+  const {user,setUser,listaAReservar,setListaAReservar,refresh,setRefresh,clearElegido, setClearElegido} = useContext(GlobalContext);
 
   return (
     <View style={styles.container}>
@@ -22,11 +47,8 @@ export default ({ navigation }) => {
           fontSize={18}
         />
         {/* Falta codear como traer datos de la reserva */}
-        <View>
-          <TextoComun text="Reserva de escritorio." fontSize={16} />
-          <TextoComun text="Día:" fontSize={14} />
-          <TextoComun text="Horario:" fontSize={14} />
-          {/* <TextoComun text="Dirección:" fontSize={14} /> */}
+        <View style={{height:500}}>
+        <ConfirmarReservasFlatlist reservas={fechas} navigation={navigation} />
         </View>
         <View style={buttons.containerbutton}>
           <Button

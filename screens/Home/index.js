@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { View, TextInput, ImageBackground } from 'react-native';
+import { View, TextInput, ImageBackground , Alert} from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
@@ -34,6 +34,23 @@ export default ({ navigation }) => {
     }, [refresh])
   );
 
+  const confirmarReserva = () =>
+    Alert.alert(
+      'Confirmacion de Reserva',
+      'Seguro quieres Confirmar la Reserva?',
+      [
+        {
+          text: 'Volver',
+          onPress: () => console.log('Volver Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK, Confirmar', onPress: handleConfirmacion },
+      ]
+    );
+
+    const handleConfirmacion = () =>{
+      navigation.navigate('Revisar Reserva', {fechas: listaAReservar})
+    }
   return (
     <View style={styles.container}>
       <View>
@@ -41,12 +58,11 @@ export default ({ navigation }) => {
           text="Agregar Logo o info de la empresa que sea util para el HOME"
           fontSize={18}
         />
-        {/* Falta codear como traer datos de la reserva */}
 
         <ReservaFlatlist navigation={navigation} reservas={reservas} />
 
         <View style={buttons.containerbutton}>
-          <Button mode="contained" onPress={{}} style={buttons.button}>
+          <Button mode="contained" onPress={confirmarReserva} style={buttons.button}>
             Confirmar
           </Button>
         </View>

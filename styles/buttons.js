@@ -9,6 +9,10 @@ const buttons = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 20,
   },
+  buttonReserva: {
+    marginHorizontal: 15,
+    marginTop: 20,
+  },
 
   blackButton: {
     backgroundColor: 'black',

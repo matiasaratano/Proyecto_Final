@@ -3,6 +3,8 @@ import { useContext, useState, useCallback } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import GlobalContext from '../../services/GlobalContext';
 import ReservaService from '../../services/reservas.js';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const Reserva = ({ data, navigation }) => {
   //Recibe Objeto Reserva Con este formato
@@ -13,15 +15,18 @@ const Reserva = ({ data, navigation }) => {
   const monthName = new Date(year, month - 1)
     .toLocaleString('es', { month: 'long' })
     .replace(/^\w/, (c) => c.toUpperCase());
-  const {
-    user,
-    setUser,
-    listaAReservar,
-    setListaAReservar,
-    refresh,
-    setRefresh,
-  } = useContext(GlobalContext);
+
+  const {user,setUser,listaAReservar,setListaAReservar,refresh,setRefresh,clearElegido,setClearElegido} = useContext(GlobalContext);
+
   const [elegido, setElegido] = useState(false);
+  
+  useFocusEffect(
+    useCallback(() => {
+      if(elegido === true) {
+        setElegido(false)
+      }
+    }, [clearElegido])
+  );
 
   //Metodo para Agregar o Quitar Reserva de Lista de Reservas a Reservar.
   const handleReserva = () => {
@@ -121,9 +126,12 @@ const Reserva = ({ data, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{flexDirection:'column',alignSelf:'flex-start'}}>
+        <Text style={{fontSize:25}}>
+          {day}
+        </Text>
         <Text>
-          {day}-{monthName}
+         {monthName}
         </Text>
       </View>
 
@@ -134,13 +142,14 @@ const Reserva = ({ data, navigation }) => {
             onPress={handleReserva}
             title={data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
             color={elegido ? '#663399' : 'grey'}
-            style={styles.button}
+            style={styles.buttonReserva}
           />
         ) : (
           <Button
             onPress={handleReserva}
             title={data.reserva ? 'Reservado' : 'Completo'}
             color={elegido ? '#663399' : 'grey'}
+            style={styles.buttonReserva}
           />
         )
       }
@@ -155,6 +164,10 @@ const Reserva = ({ data, navigation }) => {
             onPress={cancelarReserva}
             title="Cancelar"
             color="#663399"
+            style={{
+              marginHorizontal: 15,
+              marginTop: 20,
+            }}
           />
         ) : (
           <Text></Text>
@@ -184,9 +197,8 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 20,
     paddingRight: 5,
     paddingLeft: 5,
