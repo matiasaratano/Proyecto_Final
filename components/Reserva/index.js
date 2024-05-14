@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import GlobalContext from '../../services/GlobalContext';
 import ReservaService from '../../services/reservas.js';
 import { useFocusEffect } from '@react-navigation/native';
+import { Button as PaperButton, Text as PaperText, IconButton } from 'react-native-paper';
 
 
 const Reserva = ({ data, navigation }) => {
@@ -138,49 +139,64 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton de Reserva
         !completo ? (
-          <Button
+          <PaperButton
             onPress={handleReserva}
-            title={data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
-            color={elegido ? '#663399' : 'grey'}
-            style={styles.buttonReserva}
-          />
+            mode={elegido ? 'contained' : 'elevated'}
+            style={{
+              marginTop: -10,
+              marginBottom: 10,
+            }}
+          >
+            {data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
+          </PaperButton>
         ) : (
-          <Button
+          <PaperButton
             onPress={handleReserva}
-            title={data.reserva ? 'Reservado' : 'Completo'}
-            color={elegido ? '#663399' : 'grey'}
             style={styles.buttonReserva}
-          />
+          >
+            {data.reserva ? 'Reservado' : 'Completo'}
+          </PaperButton>
         )
       }
 
-      <Text>{data.cant_dias}/24</Text>
+      <PaperText variant="bodyMedium" style={{marginBottom: 20}}>{data.cant_dias}/24</PaperText>
 
       {
-        // Boton Cancelar
         data.reserva ? (
-          <Button
-            mode="elevated"
+          <IconButton
+            mode='contained'
+            iconColor={'white'}
+            containerColor='#6750a4'
+            icon="close" // Usa el nombre del icono que desees, 'close' es una 'X'
             onPress={cancelarReserva}
-            title="Cancelar"
-            color="#663399"
             style={{
-              marginHorizontal: 15,
-              marginTop: 20,
+              marginBottom: 20,
             }}
           />
         ) : (
           <Text></Text>
         )
       }
+
       {
         // Boton Vianda
         data.reserva && !data.reserva.vianda ? (
-          <Button onPress={handleVianda} title="Vianda?" color="#663399" />
+          <IconButton
+            iconColor={'white'}
+            containerColor='#6750a4'
+            icon="food"
+            onPress={handleVianda}
+            style={{
+              marginBottom: 20,
+            }}
+          >
+            Vianda?
+          </IconButton>
         ) : (
           <Text></Text>
         )
       }
+      
       {
         // Boton Lista de Espera
         !data.reserva && completo ? (
@@ -195,14 +211,12 @@ const Reserva = ({ data, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     borderRadius: 10,
-    flexDirection: 'row',
+    flexDirection: 'row', 
     justifyContent: 'space-between',
     marginTop: 20,
     paddingRight: 5,
     paddingLeft: 5,
+    alignItems: 'center', 
   },
 });
-
-export default Reserva;
