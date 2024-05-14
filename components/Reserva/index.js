@@ -4,8 +4,11 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import GlobalContext from '../../services/GlobalContext';
 import ReservaService from '../../services/reservas.js';
 import { useFocusEffect } from '@react-navigation/native';
-import { Button as PaperButton, Text as PaperText, IconButton } from 'react-native-paper';
-
+import {
+  Button as PaperButton,
+  Text as PaperText,
+  IconButton,
+} from 'react-native-paper';
 
 const Reserva = ({ data, navigation }) => {
   //Recibe Objeto Reserva Con este formato
@@ -17,14 +20,23 @@ const Reserva = ({ data, navigation }) => {
     .toLocaleString('es', { month: 'long' })
     .replace(/^\w/, (c) => c.toUpperCase());
 
-  const {user,setUser,listaAReservar,setListaAReservar,refresh,setRefresh,clearElegido,setClearElegido} = useContext(GlobalContext);
+  const {
+    user,
+    setUser,
+    listaAReservar,
+    setListaAReservar,
+    refresh,
+    setRefresh,
+    clearElegido,
+    setClearElegido,
+  } = useContext(GlobalContext);
 
   const [elegido, setElegido] = useState(false);
-  
+
   useFocusEffect(
     useCallback(() => {
-      if(elegido === true) {
-        setElegido(false)
+      if (elegido === true) {
+        setElegido(false);
       }
     }, [clearElegido])
   );
@@ -67,15 +79,15 @@ const Reserva = ({ data, navigation }) => {
   //Alert de Cancelacion con 2 Botones
   const cancelarReserva = () =>
     Alert.alert(
-      'Confirmacion de Cancelacion',
-      'Seguro quieres Cancelar la Reserva?',
+      'Confirmacion de cancelacion',
+      'Seguro queres cancelar la reserva?',
       [
         {
           text: 'Volver',
           onPress: () => console.log('OK Pressed'),
           style: 'cancel',
         },
-        { text: 'OK, Cancelar', onPress: handleCancelacion },
+        { text: 'OK', onPress: handleCancelacion },
       ]
     );
 
@@ -85,7 +97,7 @@ const Reserva = ({ data, navigation }) => {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          alert('Se da Aviso de Vianda a RRHH');
+          alert('Se da aviso de vianda a RRHH');
           setRefresh(!refresh);
         } else {
           alert(data.message);
@@ -127,13 +139,9 @@ const Reserva = ({ data, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection:'column',alignSelf:'flex-start'}}>
-        <Text style={{fontSize:25}}>
-          {day}
-        </Text>
-        <Text>
-         {monthName}
-        </Text>
+      <View style={styles.fecha}>
+        <Text style={{ fontSize: 25 }}>{day}</Text>
+        <Text>{monthName}</Text>
       </View>
 
       {
@@ -142,48 +150,42 @@ const Reserva = ({ data, navigation }) => {
           <PaperButton
             onPress={handleReserva}
             mode={elegido ? 'contained' : 'elevated'}
-            style={{
-              marginTop: -10,
-              marginBottom: 10,
-            }}
+            style={styles.buttonReserva}
           >
             {data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
           </PaperButton>
         ) : (
-          <PaperButton
-            onPress={handleReserva}
-            style={styles.buttonReserva}
-          >
+          <PaperButton onPress={handleReserva} style={styles.buttonReserva}>
             {data.reserva ? 'Reservado' : 'Completo'}
           </PaperButton>
         )
       }
 
-      <PaperText variant="bodyMedium" style={{marginBottom: 20}}>{data.cant_dias}/24</PaperText>
+      <PaperText variant="bodyMedium" style={{ marginBottom: 20 }}>
+        {data.cant_dias}/24
+      </PaperText>
 
-      {
-        data.reserva ? (
-          <IconButton
-            mode='contained'
-            iconColor={'white'}
-            containerColor='#6750a4'
-            icon="close" // Usa el nombre del icono que desees, 'close' es una 'X'
-            onPress={cancelarReserva}
-            style={{
-              marginBottom: 20,
-            }}
-          />
-        ) : (
-          <Text></Text>
-        )
-      }
+      {data.reserva ? (
+        <IconButton
+          mode="contained"
+          iconColor={'white'}
+          containerColor="#6750a4"
+          icon="close"
+          onPress={cancelarReserva}
+          style={{
+            marginBottom: 20,
+          }}
+        />
+      ) : (
+        <Text></Text>
+      )}
 
       {
         // Boton Vianda
         data.reserva && !data.reserva.vianda ? (
           <IconButton
             iconColor={'white'}
-            containerColor='#6750a4'
+            containerColor="#6750a4"
             icon="food"
             onPress={handleVianda}
             style={{
@@ -196,7 +198,7 @@ const Reserva = ({ data, navigation }) => {
           <Text></Text>
         )
       }
-      
+
       {
         // Boton Lista de Espera
         !data.reserva && completo ? (
@@ -211,13 +213,23 @@ const Reserva = ({ data, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
-    flexDirection: 'row', 
-    justifyContent: 'space-between',
-    marginTop: 20,
+    flexDirection: 'row',
+    marginTop: 15,
     paddingRight: 5,
     paddingLeft: 5,
-    alignItems: 'center', 
+    alignItems: 'center',
+  },
+  fecha: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
+  buttonReserva: {
+    marginTop: -10,
+    marginBottom: 10,
+    marginRight: 10,
+    marginLeft: 10,
   },
 });
 
