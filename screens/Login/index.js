@@ -40,7 +40,7 @@ export default ({ navigation }) => {
           <View style={buttons.containerbutton}>
             <Button
               mode="contained"
-              style={buttons.button}
+              style={buttons.buttonCustom}
               onPress={handleLogin}
             >
               Ingresar

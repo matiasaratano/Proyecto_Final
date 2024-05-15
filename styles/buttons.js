@@ -4,12 +4,14 @@ const buttons = StyleSheet.create({
   containerbutton: {
     flexDirection: 'row',
     alignSelf: 'center',
+    alignItems: 'flex-end',
   },
   button: {
+    flex: 1,
     marginHorizontal: 15,
     marginTop: 20,
   },
-  buttonReserva: {
+  buttonCustom: {
     marginHorizontal: 15,
     marginTop: 20,
   },

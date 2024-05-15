@@ -39,7 +39,7 @@ export default ({ navigation }) => {
           <TextoComun text="Reserva de escritorio." fontSize={16} />
           <TextoComun text="Día:" fontSize={14} />
           <TextoComun text="Horario:" fontSize={14} />
-          <TextoComun text="Dirección:" fontSize={14} />
+          {/* <TextoComun text="Dirección:" fontSize={14} /> */}
         </View>
 
         <TextoEncerrado

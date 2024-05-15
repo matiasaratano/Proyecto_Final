@@ -20,7 +20,7 @@ export default ({ navigation }) => {
         fontSize={16}
       />
 
-      <Button mode="contained" style={buttons.button} onPress={navigate}>
+      <Button mode="contained" style={buttons.buttonCustom} onPress={navigate}>
         Volver al inicio
       </Button>
     </View>

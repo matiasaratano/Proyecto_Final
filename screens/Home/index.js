@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { View, TextInput, ImageBackground , Alert} from 'react-native';
+import { View, TextInput, ImageBackground, Alert } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
@@ -63,7 +63,7 @@ export default ({ navigation }) => {
   };
 
   const handleConfirmacion = () => {
-    navigation.navigate('Revisar Reserva', {fechas: listaAReservar});
+    navigation.navigate('Revisar Reserva', { fechas: listaAReservar });
   };
 
   return (
@@ -77,7 +77,11 @@ export default ({ navigation }) => {
         <ReservaFlatlist navigation={navigation} reservas={reservas} />
 
         <View style={buttons.containerbutton}>
-          <Button mode="contained" onPress={confirmarReserva} style={buttons.button}>
+          <Button
+            mode="contained"
+            onPress={confirmarReserva}
+            style={buttons.buttonCustom}
+          >
             Confirmar
           </Button>
         </View>

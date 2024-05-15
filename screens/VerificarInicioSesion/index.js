@@ -21,7 +21,7 @@ export default ({ navigation }) => {
           <Button
             mode="contained"
             onPress={navigateToLogin}
-            style={[buttons.button, { alignSelf: 'center' }]}
+            style={[buttons.buttonCustom, { alignSelf: 'center' }]}
           >
             Inicio
           </Button>

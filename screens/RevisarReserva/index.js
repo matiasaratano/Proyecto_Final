@@ -9,21 +9,22 @@ import GlobalContext from '../../services/GlobalContext';
 import ReservaService from '../../services/reservas.js';
 import { useFocusEffect } from '@react-navigation/native';
 
-
-
 export default ({ navigation, route }) => {
-const {fechas} = route.params
+  const fechas = route.params && route.params.fechas;
 
   const navigateConfirm = () => {
-    ReservaService.createReservas(fechas,1)
+    if (!fechas) {
+      alert('No se han proporcionado fechas para confirmar la reserva.');
+      return;
+    }
+    ReservaService.createReservas(fechas, 1)
       .then((data) => {
         console.log(data);
         if (data.success) {
           alert('Reservas Creadas');
-          setClearElegido(!clearElegido)
-          setListaAReservar([])
+          setClearElegido(!clearElegido);
+          setListaAReservar([]);
           navigation.navigate('Tu reserva fue confirmada');
-          
         } else {
           alert(data.message);
         }
@@ -31,13 +32,22 @@ const {fechas} = route.params
       .catch((error) => {
         console.error('Error fetching:', error);
       });
-    };
+  };
   const navigateHome = () => {
-    setClearElegido(!clearElegido)
-    setListaAReservar([])
+    setClearElegido(!clearElegido);
+    setListaAReservar([]);
     navigation.navigate('Home');
   };
-  const {user,setUser,listaAReservar,setListaAReservar,refresh,setRefresh,clearElegido, setClearElegido} = useContext(GlobalContext);
+  const {
+    user,
+    setUser,
+    listaAReservar,
+    setListaAReservar,
+    refresh,
+    setRefresh,
+    clearElegido,
+    setClearElegido,
+  } = useContext(GlobalContext);
 
   return (
     <View style={styles.container}>
@@ -47,8 +57,11 @@ const {fechas} = route.params
           fontSize={18}
         />
         {/* Falta codear como traer datos de la reserva */}
-        <View style={{height:500}}>
-        <ConfirmarReservasFlatlist reservas={fechas} navigation={navigation} />
+        <View style={{ height: 450 }}>
+          <ConfirmarReservasFlatlist
+            reservas={fechas}
+            navigation={navigation}
+          />
         </View>
         <View style={buttons.containerbutton}>
           <Button
