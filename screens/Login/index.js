@@ -1,18 +1,31 @@
 import { useState, useContext } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import GlobalContext from '../../services/GlobalContext';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import CustomInput from '../../components/CustomInput';
+import asyncStorage from '../../services/asyncStorage';
+import LoginService from '../../services/login.js';
+
+const URL = process.env.URL;
 
 export default ({ navigation }) => {
   const [Inputlogin, OnchangeLogin] = useState('');
   const [Inputpassword, OnchangePassword] = useState('');
+  const [error, setError] = useState(null);
   const { user, setUser } = useContext(GlobalContext);
 
   const handleLogin = () => {
-    console.log('Login');
+    LoginService.login(Inputlogin, Inputpassword)
+      .then(user => {
+        setUser(user);
+        asyncStorage.storeData('Token', user);
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        setError(error.message);
+      });
   };
 
   const navigateToForgotPassword = () => {
@@ -36,11 +49,12 @@ export default ({ navigation }) => {
           value={Inputpassword}
           onChangeText={OnchangePassword}
         />
+        {error && <Text style={{color: 'red'}}>{error}</Text>}
         <View>
           <View style={buttons.containerbutton}>
             <Button
               mode="contained"
-              style={buttons.buttonCustom}
+              style={buttons.button}
               onPress={handleLogin}
             >
               Ingresar

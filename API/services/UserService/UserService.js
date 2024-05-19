@@ -99,18 +99,22 @@ class UserService {
     }
 
         generateAuthToken(user) {
-                const token = Jwt.sign({id: user.userId, email: user.email, role: user.role}, process.env.CLAVE_SECRETA);
-                return token ;
+                const Token = Jwt.sign({id: user.userId, email: user.email, role: user.role}, process.env.CLAVE_SECRETA);
+                return Token ;
         }
 
         async login (userData) {
             try {
+                console.log("Email de usuario: " + userData.email + " password de usuario: " + userData.userPassword);
                const user = await this.findByCredentials(userData.email, userData.userPassword);
-               const token = this.generateAuthToken(user.data);
-               return { success: true, data: token };
+               const Token = this.generateAuthToken(user.data);
+               console.log("Token: " + Token);
+               console.log("Usuario: " + user.data);
+               return { success: true, data: Token };
         
             }
             catch (error) {
+                console.log("Error al iniciar sesión: ");
                 throw new Error('Error al iniciar sesión: ' + error.message);
             }
         }
