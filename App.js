@@ -3,19 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useState, useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import GlobalContext from './services/GlobalContext';
-import Login from './screens/Login';
-import Reservar from './screens/Reservar';
-import MisReservas from './screens/MisReservas';
-import MiPerfil from './screens/MiPerfil';
-// import Register from './screens/Register';
+import Login from './screens/Login/index.js';
 import { NavigationContainer } from '@react-navigation/native';
-import RevisarReserva from './screens/RevisarReserva';
-import ListaDeEspera from './screens/ListaDeEspera';
-import VerificarInicioSesion from './screens/VerificarInicioSesion';
-import EnvioPassword from './screens/EnvioPassword';
-import ReservaConfirmada from './screens/ReservaConfirmada';
-import Home from './screens/Home';
-import VerificarReserva from './screens/VerificarReserva';
+
+import Home from './screens/Home/index.js';
+
 import asyncStorage from './services/asyncStorage';
 
 export default function App() {
@@ -81,9 +73,7 @@ export default function App() {
   {user ? (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Reservar" component={Reservar} />
-      <Drawer.Screen name="Mis Reservas" component={MisReservas} />
-      <Drawer.Screen name="Mi Perfil" component={MiPerfil} />
+
       <Drawer.Screen
         name="Login"
         component={Login}
@@ -95,27 +85,9 @@ export default function App() {
     </Drawer.Navigator>
   ) : (
     <Drawer.Navigator initialRouteName="Login">
-      <Drawer.Screen name="Login" component={Login} />
-      {/* <Drawer.Screen name="Register" component={Register} /> */}
-      <Drawer.Screen name="Revisar Reserva" component={RevisarReserva} />
-      <Drawer.Screen name="Lista de Espera" component={ListaDeEspera} />
-      <Drawer.Screen
-        name="Verificar Inicio de Sesion"
-        component={VerificarInicioSesion}
-      />
-      <Drawer.Screen
-        name="Verificar tu reserva"
-        component={VerificarReserva}
-      />
-      <Drawer.Screen
-        name="Envío de contraseña"
-        component={EnvioPassword}
-      />
-      <Drawer.Screen
-        name="Tu reserva fue confirmada"
-        component={ReservaConfirmada}
-      />
+      <Drawer.Screen name="Inicio Sesion" component={Login} />
       <Drawer.Screen name="Home" component={Home} />
+
     </Drawer.Navigator>
   )}
 </NavigationContainer>
