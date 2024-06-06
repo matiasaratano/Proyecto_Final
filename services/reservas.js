@@ -1,4 +1,4 @@
-const URL = process.env.URL
+const URL = process.env.URL;
 const getReservasByUser = (id) => {
   console.log(URL)
   return fetch(`${URL}/api/reserva/user/${id}`).then(
