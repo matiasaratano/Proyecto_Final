@@ -24,14 +24,14 @@ export default ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-      ReservaService.getReservasByUser(1)
+      ReservaService.getReservasByUser(user)
         .then((data) => {
           setReservas(data.message);
         })
         .catch((error) => {
           console.error('Error fetching mazos:', error);
         });
-    }, [refresh])
+    }, [refresh, user])
   );
 
   const confirmarReserva = () => {

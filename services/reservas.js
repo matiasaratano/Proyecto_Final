@@ -1,6 +1,13 @@
+import jwt_decode from 'jwt-decode';
+
 const URL = process.env.URL;
-const getReservasByUser = (id) => {
-  console.log(URL)
+
+
+const getReservasByUser = (user) => {
+  console.log('user entrante: ' + user);
+  const jwtInfo = jwt_decode(user);
+  const id = jwtInfo.id;
+  console.log("Url: " + URL + ", id: " + id)
   return fetch(`${URL}/api/reserva/user/${id}`).then(
     (res) => {
       if (res.status === 200) {
@@ -11,6 +18,7 @@ const getReservasByUser = (id) => {
     }
   );
 };
+
 
 const deleteReserva = (id) => {
   return fetch(`${URL}/api/reserva/${id}`, {
@@ -26,6 +34,7 @@ const deleteReserva = (id) => {
     }
   });
 };
+
 
 const updateVianda = (id) => {
   return fetch(`${URL}/api/reserva/vianda/${id}`, {
@@ -46,7 +55,9 @@ const getIntoListaEspera = (fecha, userId) => {
   console.log('Ingresando a Lista de Espera');
 };
 
-const createReservas = (fechas, userId) => {
+const createReservas = (fechas, user) => {
+  const jwtInfo = jwt_decode(user);
+  const userId = jwtInfo.id;
   const requestBody = {
     fechas: fechas,
     userId: userId
