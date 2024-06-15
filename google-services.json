@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "613982610165",
-    "project_id": "bdt-academy",
-    "storage_bucket": "bdt-academy.appspot.com"
+    "project_number": "${FIREBASE_PROJECT_NUMBER}",
+    "project_id": "${FIREBASE_PROJECT_ID}",
+    "storage_bucket": "${FIREBASE_STORAGE_BUCKET}"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:613982610165:android:ea071f06ef3a7cd54ddbbc",
+        "mobilesdk_app_id": "${FIREBASE_APP_ID}",
         "android_client_info": {
-          "package_name": "com.ort.gestionpresencialidad"
+          "package_name": "${ANDROID_PACKAGE_NAME}"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBxFPd2QiTt5sqXqG0el1HA-f7wbnoEodc"
+          "current_key": "${FIREBASE_API_KEY}"
         }
       ],
       "services": {
