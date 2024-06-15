@@ -3,6 +3,11 @@ import { Text, Button } from 'react-native-paper';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
+import { RESERVA_CONFIRMADA_DESCRIPTION, RESERVA_CONFIRMADA_TITLE, 
+        RESERVA_CONFIRMADA_VOLVER, RESERVA_CONFIRMADA_VIANDAS, 
+        RESERVA_CONFIRMADA_HOME, RESERVA_CONFIRMADA_CONTACTO,
+        RESERVA_CONFIRMADA_FAQS    
+  } from '../../resources/strings';
 
 export default ({ navigation }) => {
   const navigateHome = () => {
@@ -25,10 +30,10 @@ export default ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <TextoEncerrado text="Reserva confirmada!" fontSize={18} />
+      <TextoEncerrado text={RESERVA_CONFIRMADA_TITLE} fontSize={18} />
 
       <TextoEncerrado
-        text="Recorda que podes pedir tu vianda hasta el viernes a la 18hs. Para personalizarla, por favor, completa el siguiente formulario"
+        text={RESERVA_CONFIRMADA_DESCRIPTION}
         fontSize={16}
       />
       <View style={buttons.containerbutton}>
@@ -37,14 +42,14 @@ export default ({ navigation }) => {
           onPress={handleViandasPress}
           style={buttons.button}
         >
-          Viandas
+          {RESERVA_CONFIRMADA_VIANDAS}
         </Button>
         <Button
           mode="contained-tonal"
           onPress={navigateHome}
           style={buttons.button}
         >
-          Volver
+          {RESERVA_CONFIRMADA_VOLVER}
         </Button>
       </View>
       <View
@@ -65,14 +70,14 @@ export default ({ navigation }) => {
           onPress={() => navigation.navigate('Home')}
           color="black"
         >
-          Home
+          {RESERVA_CONFIRMADA_HOME}
         </Button>
         <Button
           mode="text"
           onPress={() => navigation.navigate('Contacto')}
           color="black"
         >
-          Contacto
+          {RESERVA_CONFIRMADA_CONTACTO}
         </Button>
 
         <Button
@@ -80,7 +85,7 @@ export default ({ navigation }) => {
           onPress={() => navigation.navigate('FAQs')}
           color="black"
         >
-          FAQs
+          {RESERVA_CONFIRMADA_FAQS}
         </Button>
       </View>
     </View>

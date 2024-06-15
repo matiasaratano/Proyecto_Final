@@ -3,6 +3,7 @@ import { Text, Button } from 'react-native-paper';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
+import { LISTA_DE_ESPERA_TITLE, LISTA_DE_ESPERA_DESCRIPTION, LISTA_DE_ESPERA_BACK_TO_HOME } from '../../resources/strings';
 
 export default ({ navigation }) => {
   const navigate = () => {
@@ -10,18 +11,15 @@ export default ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <TextoEncerrado text="Estas anotado en lista de espera!" fontSize={18} />
+      <TextoEncerrado text={LISTA_DE_ESPERA_TITLE} fontSize={18} />
 
       <TextoEncerrado
-        text="En caso de que alguien cancele su reserva te avisaremos. Podes ir de
-          todas formas a la oficina y ocupar un espacio común (sala de
-          reuniones) Contactate con recursos humanos por consultas:
-          rrhh@empresa.com"
+        text={LISTA_DE_ESPERA_DESCRIPTION}
         fontSize={16}
       />
 
       <Button mode="contained" style={buttons.buttonCustom} onPress={navigate}>
-        Volver al inicio
+        {LISTA_DE_ESPERA_BACK_TO_HOME}
       </Button>
     </View>
   );
