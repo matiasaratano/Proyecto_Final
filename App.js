@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import GlobalContext from './services/GlobalContext';
 import Login from './screens/Login/index.js';
 import { NavigationContainer } from '@react-navigation/native';
+import { usePushNotifications } from './usePushNotifications';
 
 import Home from './screens/Home/index.js';
 
@@ -19,7 +20,10 @@ export default function App() {
   const [clearElegido, setClearElegido] = useState();
   const [loading, setLoading] = useState(true);
 
-  const handleLogout = async() => {
+  const { expoPushToken, notification } = usePushNotifications();
+  const data = JSON.stringify(notification, undefined, 2);
+
+  const handleLogout = async () => {
     await asyncStorage.removeData('Token');
     setUser(null);
     // console.log('Cerrando sesión...');
@@ -30,29 +34,29 @@ export default function App() {
       const token = await asyncStorage.getData('Token');
       if (token) {
         // console.log('Valor de token: ' + token)
-        setUser( token );
-      }else{
+        setUser(token);
+      } else {
         // console.log('No hay token')
       }
       setLoading(false);
     };
-  
+
     fetchToken();
   }, []);
 
   useEffect(() => {
-    if (!loading){
-      if(user){
+    if (!loading) {
+      if (user) {
         // console.log('Se carga Cache con Datos')
         // console.log(user)
-        asyncStorage.storeData('Token', user)
-      }else{
+        asyncStorage.storeData('Token', user);
+      } else {
         // console.log("valor de user: " + user)
         // console.log('Se limpia la cache al deslogear')
-        asyncStorage.clearAll()
+        asyncStorage.clearAll();
       }
-    };
-  }, [user, loading])
+    }
+  }, [user, loading]);
 
   return (
     <GlobalContext.Provider
@@ -65,33 +69,34 @@ export default function App() {
         setReservas,
         refresh,
         setRefresh,
-        clearElegido, 
+        clearElegido,
         setClearElegido,
       }}
     >
-        <NavigationContainer>
-  {user ? (
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={Home} />
-
-      <Drawer.Screen
-        name="Login"
-        component={Login}
-        listeners={{ focus: handleLogout }}
-        options={{
-          drawerLabel: () => <Text style={{ color: 'red' }}>Logout</Text>,
-        }}
-      />
-    </Drawer.Navigator>
-  ) : (
-    <Drawer.Navigator initialRouteName="Login">
-      <Drawer.Screen name="Inicio Sesion" component={Login} />
-      <Drawer.Screen name="Home" component={Home} />
-
-    </Drawer.Navigator>
-  )}
-</NavigationContainer>
-      
+      <NavigationContainer>
+        {user ? (
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen
+              name="Login"
+              component={Login}
+              listeners={{ focus: handleLogout }}
+              options={{
+                drawerLabel: () => <Text style={{ color: 'red' }}>Logout</Text>,
+              }}
+            />
+          </Drawer.Navigator>
+        ) : (
+          <Drawer.Navigator initialRouteName="Login">
+            <Drawer.Screen name="Inicio Sesion" component={Login} />
+            <Drawer.Screen name="Home" component={Home} />
+          </Drawer.Navigator>
+        )}
+      </NavigationContainer>
+      <View style={styles.container}>
+        <Text>Token: {expoPushToken?.data ?? ''}</Text>
+        <Text>Notification: {data}</Text>
+      </View>
     </GlobalContext.Provider>
   );
 }
