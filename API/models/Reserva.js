@@ -19,6 +19,15 @@ Reserva.init({
             notNull: { args: true, msg: ErrorMessage.NOT_NULL },
             isIn: { args: [[true, false]], msg: ErrorMessage.NOT_BOOLEAN }
         }
+    },
+    presente: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+        validate: {
+            notNull: { args: true, msg: ErrorMessage.NOT_NULL },
+            isIn: { args: [[true, false]], msg: ErrorMessage.NOT_BOOLEAN }
+        }
     }
 }, {
     sequelize: connection,

@@ -15,6 +15,7 @@ class UserController {
         }
     };
 
+    
 
     getAllUsers = async (req, res) => {
         try {

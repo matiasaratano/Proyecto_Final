@@ -26,7 +26,31 @@ class Formateador {
         return soloSemana;
     }
 
-
+    crearFechasDelMes() {
+        const formatDate = (date) => {
+            const year = date.getFullYear(); // Traer Año Completo
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Traer Mes y agregarle el 0 si hace falta
+            const day = date.getDate().toString().padStart(2, '0'); // Traer Dia y agregarle el 0 si hace falta
+    
+            return `${year}-${month}-${day}`;
+        }
+    
+        const fechasArray = [];
+        const fecha = new Date(); // fecha actual
+        const diasDelMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate(); // obtener los días del mes actual
+    
+        for(let i = 0; i < diasDelMes; i++){
+            const nextDate = new Date(fecha.getFullYear(), fecha.getMonth(), i + 1);
+            fechasArray.push(nextDate);
+        }
+    
+        const soloSemana = fechasArray.filter(function(element, index){
+            const dt = new Date(element);
+            return (dt.getDay() != 0 && dt.getDay() != 6);
+        }).map(date => formatDate(date)); // Formatear fecha como  yyyy-mm-dd
+    
+        return soloSemana;
+    }
 
     formatearFechas(fechas, reservas, reservasTotales) {
 
