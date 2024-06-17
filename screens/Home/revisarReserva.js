@@ -17,7 +17,7 @@ export default ({ navigation, route }) => {
       alert('No se han proporcionado fechas para confirmar la reserva.');
       return;
     }
-    ReservaService.createReservas(fechas, 1)
+    ReservaService.createReservas(fechas, user)
       .then((data) => {
         console.log(data);
         if (data.success) {
@@ -43,6 +43,8 @@ export default ({ navigation, route }) => {
     setUser,
     listaAReservar,
     setListaAReservar,
+    reservas,
+    setReservas,
     refresh,
     setRefresh,
     clearElegido,

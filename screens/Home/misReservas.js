@@ -10,6 +10,12 @@ import buttons from '../../styles/buttons';
 import Reserva from '../../components/Reserva';
 import ReservaService from '../../services/reservas.js';
 import GlobalContext from '../../services/GlobalContext';
+import { MIS_RESERVAS_SIN_RESERVAS_ALERT1, MIS_RESERVAS_SIN_RESERVAS_ALERT2,
+          MIS_RESERVAS_SIN_RESERVAS_ALERT3, MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT1,
+          MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT2, MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3,
+          MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4, MIS_RESERVAS_COMPANY_INFO,
+          MIS_RESERVAS_ATTENTION_MESSAGE  
+ } from '../../resources/strings.js';
 
 export default ({ navigation }) => {
   const {
@@ -24,39 +30,39 @@ export default ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-      ReservaService.getReservasByUser(1)
+      ReservaService.getReservasByUser(user)
         .then((data) => {
           setReservas(data.message);
         })
         .catch((error) => {
           console.error('Error fetching mazos:', error);
         });
-    }, [refresh])
+    }, [refresh, user])
   );
 
   const confirmarReserva = () => {
     if (listaAReservar.length === 0) {
       Alert.alert(
-        'No hay reservas seleccionadas',
-        'Por favor, selecciona una reserva antes de confirmar.',
+        {MIS_RESERVAS_SIN_RESERVAS_ALERT1},
+        {MIS_RESERVAS_SIN_RESERVAS_ALERT2},
         [
           {
-            text: 'OK',
+            text: {MIS_RESERVAS_SIN_RESERVAS_ALERT3},
             onPress: () => console.log('OK Pressed'),
           },
         ]
       );
     } else {
       Alert.alert(
-        'Confirmacion de Reserva',
-        'Seguro quieres Confirmar la Reserva?',
+        {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT1},
+        {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT2},
         [
           {
-            text: 'Volver',
+            text: {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3},
             onPress: () => console.log('Volver Pressed'),
             style: 'cancel',
           },
-          { text: 'OK, Confirmar', onPress: handleConfirmacion },
+          { text: {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4}, onPress: handleConfirmacion },
         ]
       );
     }
@@ -70,7 +76,7 @@ export default ({ navigation }) => {
     <View style={styles.container}>
       <View>
         <TextoEncerrado
-          text="Agregar Logo o info de la empresa que sea util para el HOME"
+          text={MIS_RESERVAS_COMPANY_INFO}
           fontSize={18}
         />
 
@@ -87,7 +93,7 @@ export default ({ navigation }) => {
         </View>
         <View>
           <TextoEncerrado
-            text="ATENCIÓN! Si es imprescindible que visites la oficina, por favor comunícate con RRHH para buscar una solución."
+            text={MIS_RESERVAS_ATTENTION_MESSAGE}
             fontSize={18}
           />
         </View>
