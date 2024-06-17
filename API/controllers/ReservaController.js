@@ -156,14 +156,14 @@ class ReservaController {
             })
 
             
-            console.log("Reservas totales en ReservasController: " + JSON.stringify(reservasTotales, null, 2));
+            //console.log("Reservas totales en ReservasController: " + JSON.stringify(reservasTotales, null, 2));
     
             let resultado = formateador.formatearFechas(fechas,reservas,reservasTotales)
             
             // Filtrar los objetos que no tienen reservas nulas
             resultado = resultado.filter(item => item.reserva !== null)
 
-            console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
+            //console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
     
             return resultado ;
         }
