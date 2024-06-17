@@ -1,5 +1,6 @@
 import {Reserva, UserXLista} from '../models/index.js'
 import { Sequelize } from 'sequelize';
+import { Op } from 'sequelize';
 import Formateador from '../services/Formateador/index.js';
 
 
@@ -129,6 +130,48 @@ class ReservaController {
         }
     }
 
+
+    getAllReservasByUserForMonth = async (id, month, year) => {
+        try {
+            const startOfMonth = new Date(year, month - 1, 1);
+            const endOfMonth = new Date(year, month, 0);
+    
+            const reservasTotales = await Reserva.findAll({ 
+                attributes: [ 
+                    [Sequelize.literal('DATE_FORMAT(fecha, "%Y-%m-%d")'), 'fecha'], // Formato de fecha "yyyy-mm-dd" 
+                    [Sequelize.literal('COUNT(*)'), 'cant'] // Contar el número de reservas 
+                ],
+                group: ['fecha'], // Agrupar por fecha 
+                where: {
+                    fecha: {
+                        [Op.gte]: startOfMonth,
+                        [Op.lte]: endOfMonth
+                    }
+                }
+            });
+            
+            const fechas = formateador.crearFechasDelMes()
+            const reservas =  await Reserva.findAll({
+                where: { UserId: id },
+            })
+
+            
+            //console.log("Reservas totales en ReservasController: " + JSON.stringify(reservasTotales, null, 2));
+    
+            let resultado = formateador.formatearFechas(fechas,reservas,reservasTotales)
+            
+            // Filtrar los objetos que no tienen reservas nulas
+            resultado = resultado.filter(item => item.reserva !== null)
+
+            //console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
+    
+            return resultado ;
+        }
+        catch (error) {
+            console.error(error);
+            return [];
+        }
+    }
 
 
     updateReserva = async (req,res) => {
