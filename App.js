@@ -5,10 +5,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import GlobalContext from './services/GlobalContext';
 import Login from './screens/Login/index.js';
 import { NavigationContainer } from '@react-navigation/native';
-
 import Home from './screens/Home/index.js';
-
 import asyncStorage from './services/asyncStorage';
+import useNotification from './services/useNotification.js';
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -18,6 +17,9 @@ export default function App() {
   const [refresh, setRefresh] = useState();
   const [clearElegido, setClearElegido] = useState();
   const [loading, setLoading] = useState(true);
+  const { expoPushToken, notification } = useNotification();
+
+  const data = JSON.stringify(notification, undefined, 2);
 
   const handleLogout = async() => {
     await asyncStorage.removeData('Token');
@@ -71,29 +73,28 @@ export default function App() {
         setClearElegido,
       }}
     >
-        <NavigationContainer>
-  {user ? (
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={Home} />
+      <NavigationContainer>
+        {user ? (
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={Home} />
 
-      <Drawer.Screen
-        name="Login"
-        component={Login}
-        listeners={{ focus: handleLogout }}
-        options={{
-          drawerLabel: () => <Text style={{ color: 'red' }}>Logout</Text>,
-        }}
-      />
-    </Drawer.Navigator>
-  ) : (
-    <Drawer.Navigator initialRouteName="Login">
-      <Drawer.Screen name="Inicio Sesion" component={Login} />
-      <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen
+              name="Login"
+              component={Login}
+              listeners={{ focus: handleLogout }}
+              options={{
+                drawerLabel: () => <Text style={{ color: 'red' }}>Logout</Text>,
+              }}
+            />
+          </Drawer.Navigator>
+        ) : (
+          <Drawer.Navigator initialRouteName="Login">
+            <Drawer.Screen name="Inicio Sesion" component={Login} />
+            <Drawer.Screen name="Home" component={Home} />
 
-    </Drawer.Navigator>
-  )}
-</NavigationContainer>
-      
+          </Drawer.Navigator>
+        )}
+      </NavigationContainer>
     </GlobalContext.Provider>
   );
 }
