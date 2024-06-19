@@ -17,7 +17,7 @@ app.use((req, res) => {
   res.status(400).send('EndPoint Not Found');
 });
 
-await connection.sync({ force: false });
+await connection.sync({ force:false });
 
 app.listen(8080, () => {
   console.log('El servidor está funcionando');
