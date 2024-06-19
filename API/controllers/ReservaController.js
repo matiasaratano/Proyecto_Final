@@ -1,4 +1,4 @@
-import {Reserva, UserXLista} from '../models/index.js'
+import {Reserva, User, UserXLista} from '../models/index.js'
 import { Sequelize } from 'sequelize';
 import { Op } from 'sequelize';
 import Formateador from '../services/Formateador/index.js';
@@ -69,7 +69,22 @@ class ReservaController {
         }
     }
 
-
+    getReservas = async (req, res) => { 
+        try {
+            const reservas = await Reserva.findAll({
+                include: {
+                    model: User
+                },
+                order: [
+                    ['fecha', 'ASC'] // Ordenar por fecha de forma ascendente
+                ]
+            });
+    
+            res.status(200).send({ success: true, message: reservas });
+        } catch(error) {
+            res.status(400).send({ success: false, message: error.message });
+        }
+    }
 
     // Devuelve La cantidad de Reservas por dia si existe alguna reserva
     getCantReservas = async (req,res) => {
