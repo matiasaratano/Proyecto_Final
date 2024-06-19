@@ -1,11 +1,9 @@
-
 import React, { useState, useEffect } from 'react'
 import { Platform } from 'react-native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-const RTDatabase = process.env.FIREBASE_DATABASE_URL;
-const KeyDatabase = process.env.FIREBASE_PRIVATE_KEY;
+import asyncStorage from '../services/asyncStorage';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -14,6 +12,7 @@ Notifications.setNotificationHandler({
         shouldSetBadge: false,
     }),
 });
+
 
 async function registerForPushNotificationsAsync() {
     let token;
@@ -50,31 +49,25 @@ async function registerForPushNotificationsAsync() {
 }
 
 const useNotification = () => {
-
     const [expoPushToken, setExpoPushToken] = useState('');
 
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => {
             setExpoPushToken(token.data);
-
-            console.log("Token: ", token.data); // Verifica que el token se está generando correctamente
-
-            // Se envía el token al servidor
-            fetch(`${RTDatabase}info.json?auth=${KeyDatabase}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    notificationToken: token.data
+    
+            // Verifica que el token se está generando correctamente
+            console.log("TokenPushNotification: ", token.data); 
+    
+            // Guarda el token en AsyncStorage
+            asyncStorage.storeData('pushNotificationToken', token.data)
+                .then(() => {
+                    console.log('Token guardado en AsyncStorage');
                 })
-            })
-            .then(response => console.log(response)) // Verifica que la solicitud se completó con éxito
-            .catch(error => console.log(error));
+                .catch(error => console.log(error));
         });
     }, []);
-
-    return expoPushToken
+    
+    return expoPushToken;
 }
 
 export default useNotification

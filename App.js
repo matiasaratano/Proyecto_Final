@@ -17,9 +17,9 @@ export default function App() {
   const [refresh, setRefresh] = useState();
   const [clearElegido, setClearElegido] = useState();
   const [loading, setLoading] = useState(true);
-  const { expoPushToken, notification } = useNotification();
+  const  expoPushToken = useNotification();
 
-  const data = JSON.stringify(notification, undefined, 2);
+  
 
   const handleLogout = async() => {
     await asyncStorage.removeData('Token');
@@ -53,7 +53,7 @@ export default function App() {
       }else{
         // console.log("valor de user: " + user)
         // console.log('Se limpia la cache al deslogear')
-        asyncStorage.clearAll()
+        asyncStorage.removeData('Token');
       }
     };
   }, [user, loading])

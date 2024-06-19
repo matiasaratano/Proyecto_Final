@@ -43,26 +43,26 @@ export default ({ navigation }) => {
   const confirmarReserva = () => {
     if (listaAReservar.length === 0) {
       Alert.alert(
-        {MIS_RESERVAS_SIN_RESERVAS_ALERT1},
-        {MIS_RESERVAS_SIN_RESERVAS_ALERT2},
+        MIS_RESERVAS_SIN_RESERVAS_ALERT1,
+        MIS_RESERVAS_SIN_RESERVAS_ALERT2,
         [
           {
-            text: {MIS_RESERVAS_SIN_RESERVAS_ALERT3},
+            text: MIS_RESERVAS_SIN_RESERVAS_ALERT3,
             onPress: () => console.log('OK Pressed'),
           },
         ]
       );
     } else {
       Alert.alert(
-        {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT1},
-        {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT2},
+        MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT1,
+        MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT2,
         [
           {
-            text: {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3},
+            text: MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3,
             onPress: () => console.log('Volver Pressed'),
             style: 'cancel',
           },
-          { text: {MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4}, onPress: handleConfirmacion },
+          { text: MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4, onPress: handleConfirmacion },
         ]
       );
     }
