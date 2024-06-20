@@ -151,6 +151,9 @@ class ReservaController {
             const startOfMonth = new Date(year, month - 1, 1);
             const endOfMonth = new Date(year, month, 0);
     
+            console.log("startOfMonth: " + startOfMonth);
+            console.log("endOfMonth: " + endOfMonth);
+
             const reservasTotales = await Reserva.findAll({ 
                 attributes: [ 
                     [Sequelize.literal('DATE_FORMAT(fecha, "%Y-%m-%d")'), 'fecha'], // Formato de fecha "yyyy-mm-dd" 
@@ -165,21 +168,27 @@ class ReservaController {
                 }
             });
             
-            const fechas = formateador.crearFechasDelMes()
-            const reservas =  await Reserva.findAll({
-                where: { UserId: id },
-            })
+            const fechas = formateador.crearFechasDelMes(month, year);
+            console.log("Fechas en ReservasController: " + JSON.stringify(fechas, null, 2));
 
-            
-            //console.log("Reservas totales en ReservasController: " + JSON.stringify(reservasTotales, null, 2));
+            const reservas =  await Reserva.findAll({
+                where: { 
+                    UserId: id,
+                    fecha: {
+                        [Op.gte]: startOfMonth,
+                        [Op.lte]: endOfMonth
+                    }
+                },
+            })
     
             let resultado = formateador.formatearFechas(fechas,reservas,reservasTotales)
             
             // Filtrar los objetos que no tienen reservas nulas
             resultado = resultado.filter(item => item.reserva !== null)
+            
+            console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
 
-            //console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
-    
+
             return resultado ;
         }
         catch (error) {
