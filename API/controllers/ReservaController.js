@@ -1,6 +1,7 @@
-import {Reserva, UserXLista} from '../models/index.js'
+import {Reserva, User, UserXLista} from '../models/index.js'
 import { Sequelize } from 'sequelize';
 import { Op } from 'sequelize';
+import fetch from 'node-fetch';
 import Formateador from '../services/Formateador/index.js';
 
 
@@ -69,7 +70,22 @@ class ReservaController {
         }
     }
 
-
+    getReservas = async (req, res) => { 
+        try {
+            const reservas = await Reserva.findAll({
+                include: {
+                    model: User
+                },
+                order: [
+                    ['fecha', 'ASC'] // Ordenar por fecha de forma ascendente
+                ]
+            });
+    
+            res.status(200).send({ success: true, message: reservas });
+        } catch(error) {
+            res.status(400).send({ success: false, message: error.message });
+        }
+    }
 
     // Devuelve La cantidad de Reservas por dia si existe alguna reserva
     getCantReservas = async (req,res) => {
@@ -136,6 +152,9 @@ class ReservaController {
             const startOfMonth = new Date(year, month - 1, 1);
             const endOfMonth = new Date(year, month, 0);
     
+            console.log("startOfMonth: " + startOfMonth);
+            console.log("endOfMonth: " + endOfMonth);
+
             const reservasTotales = await Reserva.findAll({ 
                 attributes: [ 
                     [Sequelize.literal('DATE_FORMAT(fecha, "%Y-%m-%d")'), 'fecha'], // Formato de fecha "yyyy-mm-dd" 
@@ -150,21 +169,27 @@ class ReservaController {
                 }
             });
             
-            const fechas = formateador.crearFechasDelMes()
-            const reservas =  await Reserva.findAll({
-                where: { UserId: id },
-            })
+            const fechas = formateador.crearFechasDelMes(month, year);
+            console.log("Fechas en ReservasController: " + JSON.stringify(fechas, null, 2));
 
-            
-            //console.log("Reservas totales en ReservasController: " + JSON.stringify(reservasTotales, null, 2));
+            const reservas =  await Reserva.findAll({
+                where: { 
+                    UserId: id,
+                    fecha: {
+                        [Op.gte]: startOfMonth,
+                        [Op.lte]: endOfMonth
+                    }
+                },
+            })
     
             let resultado = formateador.formatearFechas(fechas,reservas,reservasTotales)
             
             // Filtrar los objetos que no tienen reservas nulas
             resultado = resultado.filter(item => item.reserva !== null)
+            
+            console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
 
-            //console.log("Resultado en ReservasController: " + JSON.stringify(resultado, null, 2));
-    
+
             return resultado ;
         }
         catch (error) {
@@ -204,7 +229,7 @@ class ReservaController {
             
             // Verificamos si la reserva existe
             const reserva = await Reserva.findByPk(id);
-            console.log(reserva)
+            console.log("Primera reserva: " + reserva)
             if (!reserva) {
                 return res.status(400).send({ success: false, message: 'Reserva no encontrada.' });
             }
@@ -212,7 +237,6 @@ class ReservaController {
             // Eliminamos la reserva
             await Reserva.destroy({ where: { id: id } });
     
-
             //Buscamos la persona que ingreso primera a la lista de espera si existe
             const userlista = await UserXLista.findOne({
                 where: {
@@ -220,21 +244,107 @@ class ReservaController {
                 },
                 order: [['ingreso', 'ASC']],
               })
-              console.log(userlista)
+              console.log("Usuario de la lista: " + userlista)
               if(userlista){
                 //Creamos Reserva para Usuario en Lista de Espera
                 const nuevaReserva = await Reserva.create({fecha:userlista.fecha,vianda: false, UserId:userlista.UserId })
-                console.log(nuevaReserva)
+                console.log("Reserva nueva para el usuario: " + nuevaReserva)
+                console.log("Id del Usuario de la lista: " + userlista.UserId)
                 //Borramos al Usuario de La Lista de Espera
                  await UserXLista.destroy({where:{UserId: userlista.UserId, fecha: userlista.fecha} })
+    
+                // Traemos la información de Firebase
+                const response = await fetch(`https://bdt-academy-default-rtdb.firebaseio.com/info.json`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const data = await response.json();
+                console.log("Respuesta de Firebase desde el backEnd: " + JSON.stringify(data));
+                
+                const dataArray = Object.values(data);
+    
+                // Filtramos la información para quedarnos solo con el objeto que tenga el mismo userId
+                const filteredData = dataArray.filter(item => item.userId === userlista.UserId);
+                console.log("Data filtrada de firebase: " + JSON.stringify(filteredData));
+    
+                // Enviamos una notificación push
+                if (filteredData.length > 0) {
+                    await this.sendPushNotification(filteredData[0].notificationToken, 'Actualización de reserva', 'Fuiste eliminado de la lista de espera y se te asignó una reserva.');
+                }
               }
-
+    
             // Enviamos una respuesta de éxito
             res.status(200).send({ success: true, message: 'Reserva eliminada correctamente.' });
         } catch (error) {
             console.error(error);
             res.status(500).send({ success: false, message: 'Error al eliminar la reserva.' });
         }
+    }
+
+    adminDeleteReserva = async (req, res) => {
+        try {
+            const {id} = req.params; // Obtenemos el ID de la reserva de los parámetros de la solicitud
+    
+            // Verificamos si la reserva existe
+            const reserva = await Reserva.findByPk(id);
+            if (!reserva) {
+                return res.status(400).send({ success: false, message: 'Reserva no encontrada.' });
+            }
+    
+            // Guardamos el ID del usuario
+            const userId = reserva.UserId;
+    
+            // Llamamos al método deleteReserva
+            const deleteReservaResponse = await this.deleteReserva(req, res);
+    
+            console.log("Respuesta de deleteReserva: " + JSON.stringify(deleteReservaResponse));
+
+                // Traemos la información de Firebase
+                const response = await fetch(`https://bdt-academy-default-rtdb.firebaseio.com/info.json`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const data = await response.json();
+                
+                const dataArray = Object.values(data);
+    
+                // Filtramos la información para quedarnos solo con el objeto que tenga el mismo userId
+                const filteredData = dataArray.filter(item => item.userId === userId);
+    
+                // Enviamos una notificación push
+                if (filteredData.length > 0) {
+                    await this.sendPushNotification(filteredData[0].notificationToken, 'Reserva eliminada.', 'Tu reserva ha sido eliminada por un administrador');
+                }
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ success: false, message: 'Error al eliminar la reserva.' });
+        }
+    }
+
+    
+    async sendPushNotification(expoPushToken, title, body) {
+        const message = {
+            to: expoPushToken,
+            sound: 'default',
+            title: title,
+            body: body,
+            data: { someData: 'goes here' },
+        };
+    
+        await fetch('https://exp.host/--/api/v2/push/send', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Accept-encoding': 'gzip, deflate',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(message),
+        });
     }
 }
 

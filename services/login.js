@@ -30,29 +30,38 @@ const login = (email, password) => {
 
     const pushNotificationToken = await asyncStorage.getData('pushNotificationToken');
 
-    fetch(`${RTDatabase}/info.json`, {
-      method: 'POST',
+    let userExists = false;
+
+    await fetch(`${RTDatabase}/info.json`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        notificationToken: pushNotificationToken,
-        userId: userId
-      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Check if user exists
+      for (let key in data) {
+        if (data[key].userId === userId) {
+          userExists = true;
+          break;
+        }
+      }
+      console.log("Respuesta de Firebase: " + JSON.stringify(data));
     });
 
-    // INTENTO DE TRAER UN OBJETO QUE TENGA USERID IGUAL AL QUE SE LOGUEO
-    // return fetch(`${RTDatabase}/info.json?orderBy="userId"&equalTo="${userId}"`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   // Do something with the data
-    //   console.log("Respuesta de Firebase: " + JSON.stringify(data));
-
+    if (!userExists) {
+      fetch(`${RTDatabase}/info.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          notificationToken: pushNotificationToken,
+          userId: userId
+        })
+      });
+    }
 
     return user.data;
   })
