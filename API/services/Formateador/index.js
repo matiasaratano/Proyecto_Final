@@ -26,7 +26,7 @@ class Formateador {
         return soloSemana;
     }
 
-    crearFechasDelMes() {
+    crearFechasDelMes(month, year) {
         const formatDate = (date) => {
             const year = date.getFullYear(); // Traer Año Completo
             const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Traer Mes y agregarle el 0 si hace falta
@@ -36,11 +36,10 @@ class Formateador {
         }
     
         const fechasArray = [];
-        const fecha = new Date(); // fecha actual
-        const diasDelMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate(); // obtener los días del mes actual
+        const diasDelMes = new Date(year, month, 0).getDate(); // obtener los días del mes especificado
     
         for(let i = 0; i < diasDelMes; i++){
-            const nextDate = new Date(fecha.getFullYear(), fecha.getMonth(), i + 1);
+            const nextDate = new Date(year, month - 1, i + 1);
             fechasArray.push(nextDate);
         }
     
