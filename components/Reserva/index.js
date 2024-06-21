@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useContext, useState, useCallback } from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert , Linking} from 'react-native';
 import GlobalContext from '../../services/GlobalContext';
 import ReservaService from '../../services/reservas.js';
 import { useFocusEffect } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import {
   Text as PaperText,
   IconButton,
 } from 'react-native-paper';
+
 
 const Reserva = ({ data, navigation }) => {
   //Recibe Objeto Reserva Con este formato
@@ -99,6 +100,7 @@ const Reserva = ({ data, navigation }) => {
         if (data.success) {
           alert('Se da aviso de vianda a RRHH');
           setRefresh(!refresh);
+          Linking.openURL('https://www.google.com').catch((err) => console.error('An error occurred', err));
         } else {
           alert(data.message);
         }
@@ -124,10 +126,11 @@ const Reserva = ({ data, navigation }) => {
 
   //Metodo para llamar a Api para Ingresar Lista de Espera
   const handleListaEspera = () => {
-    ReservaService.getIntoListaEspera(data.fecha, 'userId')
+    ReservaService.getIntoListaEspera(data.fecha, user)
       .then((data) => {
         console.log(data);
         if (data.success) {
+          navigation.navigate("Lista de Espera")
         } else {
           alert(data.message);
         }
@@ -202,7 +205,7 @@ const Reserva = ({ data, navigation }) => {
       {
         // Boton Lista de Espera
         !data.reserva && completo ? (
-          <Button onPress={() => {}} title="Lista de Espera" color="#663399" />
+          <Button onPress={entrarListadeEspera} title="Lista de Espera" color="#663399" />
         ) : (
           <Text></Text>
         )

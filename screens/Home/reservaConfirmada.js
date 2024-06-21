@@ -1,4 +1,4 @@
-import { View, Alert } from 'react-native';
+import { View, Alert , Linking} from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
@@ -23,7 +23,7 @@ export default ({ navigation }) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
+        { text: 'Aceptar', onPress: () => Linking.openURL('https://www.google.com').catch((err) => console.error('An error occurred', err))  },
       ],
       { cancelable: false }
     );
