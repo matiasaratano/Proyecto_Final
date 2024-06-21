@@ -67,7 +67,6 @@ export default ({ navigation }) => {
       );
     }
   };
-
   const handleConfirmacion = () => {
     navigation.navigate('Revisar Reserva', { fechas: listaAReservar });
   };
