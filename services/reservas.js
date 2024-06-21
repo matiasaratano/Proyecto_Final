@@ -51,8 +51,26 @@ const updateVianda = (id) => {
   });
 };
 
-const getIntoListaEspera = (fecha, userId) => {
-  console.log('Ingresando a Lista de Espera');
+const getIntoListaEspera = (fecha, user) => {
+  const jwtInfo = jwt_decode(user);
+  const userId = jwtInfo.id;
+  const requestBody = {
+    fecha: fecha,
+    userId: userId
+  };
+  return fetch(`${URL}/api/userXLista`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody)
+  }).then(res => {
+    if (res.status === 200) {
+      return res.json();
+    } else {
+      return res.json();
+    }
+  })
 };
 
 const createReservas = (fechas, user) => {
