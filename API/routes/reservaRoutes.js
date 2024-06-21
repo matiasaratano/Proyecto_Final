@@ -16,4 +16,7 @@ reservaRoutes.put("/:id", reservaController.updateReserva)
 reservaRoutes.put("/vianda/:id", reservaController.updateViandaReserva)
 reservaRoutes.delete("/:id", reservaController.deleteReserva)
 
+// Ruta para adminDeleteReserva
+reservaRoutes.delete("/admin/:id", reservaController.adminDeleteReserva)
+
 export default reservaRoutes
