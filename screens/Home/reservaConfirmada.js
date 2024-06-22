@@ -4,9 +4,7 @@ import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import { RESERVA_CONFIRMADA_DESCRIPTION, RESERVA_CONFIRMADA_TITLE, 
-        RESERVA_CONFIRMADA_VOLVER, RESERVA_CONFIRMADA_VIANDAS, 
-        RESERVA_CONFIRMADA_HOME, RESERVA_CONFIRMADA_CONTACTO,
-        RESERVA_CONFIRMADA_FAQS    
+        RESERVA_CONFIRMADA_VOLVER, RESERVA_CONFIRMADA_VIANDAS
   } from '../../resources/strings';
 
 export default ({ navigation }) => {
@@ -50,42 +48,6 @@ export default ({ navigation }) => {
           style={buttons.button}
         >
           {RESERVA_CONFIRMADA_VOLVER}
-        </Button>
-      </View>
-      <View
-        style={[
-          styles.footer,
-          {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            position: 'absolute',
-            bottom: 30,
-            left: 0,
-            right: 0,
-          },
-        ]}
-      >
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate('Home')}
-          color="black"
-        >
-          {RESERVA_CONFIRMADA_HOME}
-        </Button>
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate('Contacto')}
-          color="black"
-        >
-          {RESERVA_CONFIRMADA_CONTACTO}
-        </Button>
-
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate('FAQs')}
-          color="black"
-        >
-          {RESERVA_CONFIRMADA_FAQS}
         </Button>
       </View>
     </View>

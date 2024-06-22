@@ -2,6 +2,7 @@ import { Reserva, User, UserXLista } from '../models/index.js';
 import { Sequelize } from 'sequelize';
 import { Op } from 'sequelize';
 import fetch from 'node-fetch';
+import { transporter } from '../services/NodeMailer/NodeMailer.js';
 import Formateador from '../services/Formateador/index.js';
 
 const formateador = new Formateador();
@@ -275,8 +276,25 @@ class ReservaController {
           .send({ success: false, message: 'Reserva no encontrada.' });
       }
 
+      const vianda = reserva.vianda;
+      const fecha = reserva.fecha;
+      const user = await User.findByPk(reserva.UserId);
+
       // Eliminamos la reserva
       await Reserva.destroy({ where: { id: id } });
+
+      // Envio de mail a recursos Humanos
+      if (vianda) {
+        //nxtg tbou bari spda
+        await transporter.sendMail({
+          from: '"Cancelación de reserva con pedido de vianda" <juan.sosav17@gmail.com>', 
+          to: "juan.sosav17@gmail.com", // Acá va el mail de recursos humanos
+          subject: "Cancelación de reserva con pedido de vianda", 
+          text: `El usuario ${user.fullName} ha cancelado su reserva con pedido de vianda para el día ${fecha}.`, 
+        });
+
+      }
+
 
       //Buscamos la persona que ingreso primera a la lista de espera si existe
       const userlista = await UserXLista.findOne({
