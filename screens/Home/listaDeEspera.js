@@ -7,7 +7,7 @@ import { LISTA_DE_ESPERA_TITLE, LISTA_DE_ESPERA_DESCRIPTION, LISTA_DE_ESPERA_BAC
 
 export default ({ navigation }) => {
   const navigate = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Home');
   };
   return (
     <View style={styles.container}>

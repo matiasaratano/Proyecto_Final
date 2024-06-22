@@ -33,6 +33,7 @@ const Reserva = ({ data, navigation }) => {
   } = useContext(GlobalContext);
 
   const [elegido, setElegido] = useState(false);
+  const [enListaDeEspera, setEnListaDeEspera] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -130,6 +131,7 @@ const Reserva = ({ data, navigation }) => {
       .then((data) => {
         console.log(data);
         if (data.success) {
+          setEnListaDeEspera(true);
           navigation.navigate("Lista de Espera")
         } else {
           alert(data.message);
@@ -158,7 +160,10 @@ const Reserva = ({ data, navigation }) => {
             {data.reserva ? ' Reservado ' : 'Reservar: 9-18 hs'}
           </PaperButton>
         ) : (
-          <PaperButton onPress={handleReserva} style={styles.buttonReserva}>
+          <PaperButton 
+            onPress={handleReserva} 
+            mode={'elevated'}
+            style={styles.buttonReserva}>
             {data.reserva ? 'Reservado' : 'Completo'}
           </PaperButton>
         )
@@ -204,8 +209,18 @@ const Reserva = ({ data, navigation }) => {
 
       {
         // Boton Lista de Espera
-        !data.reserva && completo ? (
-          <Button onPress={entrarListadeEspera} title="Lista de Espera" color="#663399" />
+        !data.reserva && completo && !enListaDeEspera ? (
+          <IconButton
+            iconColor={'white'}
+            containerColor="#663399" // Cambiado al color deseado
+            icon="clock-outline" // Cambia este ícono al que prefieras para la lista de espera
+            onPress={entrarListadeEspera} // Aquí va la función que maneja el evento onPress
+            style={{
+              marginBottom: 20,
+            }}
+          >
+            Lista de Espera
+          </IconButton>
         ) : (
           <Text></Text>
         )
