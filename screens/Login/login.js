@@ -18,11 +18,11 @@ export default ({ navigation }) => {
 
   const handleLogin = () => {
     LoginService.login(Inputlogin, Inputpassword)
-      .then(user => {
+      .then((user) => {
         setUser(user);
         asyncStorage.storeData('Token', user);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error.message);
       });
   };
@@ -47,8 +47,9 @@ export default ({ navigation }) => {
           label="Contraseña"
           value={Inputpassword}
           onChangeText={OnchangePassword}
+          secureTextEntry={true}
         />
-        {error && <Text style={{color: 'red'}}>{error}</Text>}
+        {error && <Text style={{ color: 'red' }}>{error}</Text>}
         <View>
           <View style={buttons.containerbutton}>
             <Button

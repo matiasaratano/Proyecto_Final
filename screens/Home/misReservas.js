@@ -10,12 +10,17 @@ import buttons from '../../styles/buttons';
 import Reserva from '../../components/Reserva';
 import ReservaService from '../../services/reservas.js';
 import GlobalContext from '../../services/GlobalContext';
-import { MIS_RESERVAS_SIN_RESERVAS_ALERT1, MIS_RESERVAS_SIN_RESERVAS_ALERT2,
-          MIS_RESERVAS_SIN_RESERVAS_ALERT3, MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT1,
-          MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT2, MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3,
-          MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4, MIS_RESERVAS_COMPANY_INFO,
-          MIS_RESERVAS_ATTENTION_MESSAGE  
- } from '../../resources/strings.js';
+import {
+  MIS_RESERVAS_SIN_RESERVAS_ALERT1,
+  MIS_RESERVAS_SIN_RESERVAS_ALERT2,
+  MIS_RESERVAS_SIN_RESERVAS_ALERT3,
+  MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT1,
+  MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT2,
+  MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3,
+  MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4,
+  MIS_RESERVAS_COMPANY_INFO,
+  MIS_RESERVAS_ATTENTION_MESSAGE,
+} from '../../resources/strings.js';
 
 export default ({ navigation }) => {
   const {
@@ -35,7 +40,7 @@ export default ({ navigation }) => {
           setReservas(data.message);
         })
         .catch((error) => {
-          console.error('Error fetching mazos:', error);
+          console.error('Error fetching DB:', error);
         });
     }, [refresh, user])
   );
@@ -62,7 +67,10 @@ export default ({ navigation }) => {
             onPress: () => console.log('Volver Pressed'),
             style: 'cancel',
           },
-          { text: MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4, onPress: handleConfirmacion },
+          {
+            text: MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT4,
+            onPress: handleConfirmacion,
+          },
         ]
       );
     }
@@ -74,10 +82,7 @@ export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <TextoEncerrado
-          text={MIS_RESERVAS_COMPANY_INFO}
-          fontSize={18}
-        />
+        <TextoEncerrado text={MIS_RESERVAS_COMPANY_INFO} fontSize={18} />
 
         <ReservaFlatlist navigation={navigation} reservas={reservas} />
 
@@ -91,10 +96,7 @@ export default ({ navigation }) => {
           </Button>
         </View>
         <View>
-          <TextoEncerrado
-            text={MIS_RESERVAS_ATTENTION_MESSAGE}
-            fontSize={18}
-          />
+          <TextoEncerrado text={MIS_RESERVAS_ATTENTION_MESSAGE} fontSize={18} />
         </View>
       </View>
     </View>
