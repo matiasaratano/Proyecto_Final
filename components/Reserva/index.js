@@ -46,7 +46,7 @@ const Reserva = ({ data, navigation }) => {
   //Metodo para Agregar o Quitar Reserva de Lista de Reservas a Reservar.
   const handleReserva = () => {
     if (data.reserva !== null) {
-      navigation.navigate('Verificar tu reserva');
+      navigation.navigate('Verificar tu reserva', {reserva: data.reserva});
     } else if (completo) {
       alert('Dia completo , ingresar a Lista de Espera');
     } else {

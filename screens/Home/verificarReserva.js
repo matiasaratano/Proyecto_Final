@@ -5,26 +5,30 @@ import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
+import ReservaService from '../../services/reservas.js';
 
-export default ({ navigation }) => {
+export default ({ navigation , route }) => {
+  const { reserva } = route.params;
+  const texto = "Dia: " + reserva.fecha
   const navigateToLogin = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Home');
   };
 
-  const handleViandasPress = () => {
-    Alert.alert(
-      'Aca direccionariamos al form de Capital Humano?',
-      'Mientras aprovecho para probar la funcion Alert que me gusto ;)',
-      [
-        {
-          text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        { text: 'Aceptar', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false }
-    );
+  const handleVianda = () => {
+    ReservaService.updateVianda(data.reserva.id)
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          alert('Se da aviso de vianda a RRHH');
+          setRefresh(!refresh);
+          Linking.openURL('https://www.google.com').catch((err) => console.error('An error occurred', err));
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user:', error);
+      });
   };
 
   return (
@@ -36,10 +40,9 @@ export default ({ navigation }) => {
         />
         {/* Falta codear como traer datos de la reserva */}
         <View>
-          <TextoComun text="Reserva de escritorio." fontSize={16} />
-          <TextoComun text="Día:" fontSize={14} />
-          <TextoComun text="Horario:" fontSize={14} />
-          {/* <TextoComun text="Dirección:" fontSize={14} /> */}
+        <TextoComun text="Reserva de escritorio." fontSize={16} />
+          <TextoComun text={texto} fontSize={14} />
+          <TextoComun text="Horario: 9 hs a 18 hs" fontSize={14} />
         </View>
 
         <TextoEncerrado
@@ -50,7 +53,7 @@ export default ({ navigation }) => {
         <View style={buttons.containerbutton}>
           <Button
             mode="contained"
-            onPress={handleViandasPress}
+            onPress={handleVianda}
             style={buttons.button}
           >
             Viandas
