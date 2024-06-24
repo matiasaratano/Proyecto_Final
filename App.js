@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/Home/index.js';
 import asyncStorage from './services/asyncStorage';
 import useNotification from './services/useNotification.js';
+import LogoTitle from './components/LogoTitle/index.js';
 
 export default function App() {
   const Drawer = createDrawerNavigator();
@@ -76,7 +77,11 @@ export default function App() {
       <NavigationContainer>
         {user ? (
           <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="Home" component={Home} options={
+                        {
+                              headerBackVisible: false,
+                              headerTitle: () => <LogoTitle />,
+                        }} />
 
             <Drawer.Screen
               name="Login"
@@ -89,9 +94,11 @@ export default function App() {
           </Drawer.Navigator>
         ) : (
           <Drawer.Navigator initialRouteName="Login">
-            <Drawer.Screen name="Inicio Sesion" component={Login} />
-            <Drawer.Screen name="Home" component={Home} />
-
+            <Drawer.Screen name="Inicio Sesion" component={Login} options={
+                        {
+                              headerBackVisible: false,
+                              headerTitle: ""
+                        }} />
           </Drawer.Navigator>
         )}
       </NavigationContainer>
