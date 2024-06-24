@@ -6,26 +6,29 @@ import TextoEncerrado from '../../components/TextoEncerrado';
 import { RESERVA_CONFIRMADA_DESCRIPTION, RESERVA_CONFIRMADA_TITLE, 
         RESERVA_CONFIRMADA_VOLVER, RESERVA_CONFIRMADA_VIANDAS
   } from '../../resources/strings';
+  import ReservaService from '../../services/reservas.js';
 
 export default ({ navigation }) => {
   const navigateHome = () => {
     navigation.navigate('Home');
   };
-  const handleViandasPress = () => {
-    Alert.alert(
-      'Aca direccionariamos al form de Capital Humano?',
-      'Mientras aprovecho para probar la funcion Alert que me gusto ;)',
-      [
-        {
-          text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        { text: 'Aceptar', onPress: () => Linking.openURL('https://www.google.com').catch((err) => console.error('An error occurred', err))  },
-      ],
-      { cancelable: false }
-    );
+  const handleVianda = () => {
+    ReservaService.updateVianda(data.reserva.id)
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          alert('Se da aviso de vianda a RRHH');
+          setRefresh(!refresh);
+          Linking.openURL('https://www.google.com').catch((err) => console.error('An error occurred', err));
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user:', error);
+      });
   };
+
   return (
     <View style={styles.container}>
       <TextoEncerrado text={RESERVA_CONFIRMADA_TITLE} fontSize={18} />
@@ -37,7 +40,7 @@ export default ({ navigation }) => {
       <View style={buttons.containerbutton}>
         <Button
           mode="contained"
-          onPress={handleViandasPress}
+          onPress={handleVianda}
           style={buttons.button}
         >
           {RESERVA_CONFIRMADA_VIANDAS}
