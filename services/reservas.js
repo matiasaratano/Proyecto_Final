@@ -1,14 +1,22 @@
 import jwt_decode from 'jwt-decode';
+import asyncStorage from './asyncStorage';
 
 const URL = process.env.URL;
 
+async function getToken() {
+  return await asyncStorage.getData('Token');
+}
 
 const getReservasByUser = (user) => {
   console.log('user entrante: ' + user);
   const jwtInfo = jwt_decode(user);
   const id = jwtInfo.id;
   console.log("Url: " + URL + ", id: " + id)
-  return fetch(`${URL}/api/reserva/user/${id}`).then(
+  return fetch(`${URL}/api/reserva/user/${id}`, {
+    headers: {
+      'Token': user, 
+    },
+  }).then(
     (res) => {
       if (res.status === 200) {
         return res.json();
@@ -20,11 +28,13 @@ const getReservasByUser = (user) => {
 };
 
 
-const deleteReserva = (id) => {
+const deleteReserva = async (id) => {
+  const token = await getToken();
   return fetch(`${URL}/api/reserva/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      'Token': token, 
     },
   }).then((res) => {
     if (res.status === 200) {
@@ -36,11 +46,13 @@ const deleteReserva = (id) => {
 };
 
 
-const updateVianda = (id) => {
+const updateVianda = async (id) => {
+  const token = await getToken();
   return fetch(`${URL}/api/reserva/vianda/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'Token': token, 
     },
   }).then((res) => {
     if (res.status === 200) {
@@ -62,6 +74,7 @@ const getIntoListaEspera = (fecha, user) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Token': user, 
     },
     body: JSON.stringify(requestBody)
   }).then(res => {
@@ -85,6 +98,7 @@ const createReservas = (fechas, user) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Token': user, 
     },
     body: JSON.stringify(requestBody)
   }).then(res => {
