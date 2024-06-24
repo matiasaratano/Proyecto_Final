@@ -369,6 +369,8 @@ class ReservaController {
     try {
       const { id } = req.params; // Obtenemos el ID de la reserva de los parámetros de la solicitud
 
+      const reason = req.body.reason; // Obtenemos el motivo de la cancelación del cuerpo de la solicitud
+
       // Verificamos si la reserva existe
       const reserva = await Reserva.findByPk(id);
       if (!reserva) {
@@ -409,7 +411,7 @@ class ReservaController {
         await this.sendPushNotification(
           filteredData[0].notificationToken,
           'Reserva eliminada.',
-          'Tu reserva ha sido eliminada por un administrador'
+          `Tu reserva ha sido eliminada por un administrador. Motivo: ${reason}`
         );
       }
     } catch (error) {
