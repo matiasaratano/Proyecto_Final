@@ -45,6 +45,7 @@ const Reserva = ({ data, navigation }) => {
 
   //Metodo para Agregar o Quitar Reserva de Lista de Reservas a Reservar.
   const handleReserva = () => {
+    console.log("Reserva de la data: " + data.reserva)
     if (data.reserva !== null) {
       navigation.navigate('Verificar tu reserva', {reserva: data.reserva});
     } else if (completo) {

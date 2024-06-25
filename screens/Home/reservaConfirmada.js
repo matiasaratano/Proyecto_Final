@@ -1,19 +1,24 @@
-import { View, Alert , Linking} from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { View, Linking} from 'react-native';
+import { Button } from 'react-native-paper';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import { RESERVA_CONFIRMADA_DESCRIPTION, RESERVA_CONFIRMADA_TITLE, 
         RESERVA_CONFIRMADA_VOLVER, RESERVA_CONFIRMADA_VIANDAS
   } from '../../resources/strings';
-  import ReservaService from '../../services/reservas.js';
+import ReservaService from '../../services/reservas.js';
+import { useContext } from 'react';
+import GlobalContext from '../../services/GlobalContext';
 
-export default ({ navigation }) => {
+export default ({ navigation, route }) => {
+  
+  const { reservasCompletas} = route.params; 
+  const { setRefresh, refresh } = useContext(GlobalContext); 
   const navigateHome = () => {
     navigation.navigate('Home');
   };
   const handleVianda = () => {
-    ReservaService.updateVianda(data.reserva.id)
+    ReservaService.updateViandas(reservasCompletas)
       .then((data) => {
         console.log(data);
         if (data.success) {

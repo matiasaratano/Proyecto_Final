@@ -239,6 +239,30 @@ class ReservaController {
     }
   };
 
+  updateViandaReservas = async (req, res) => {
+    try {
+      const { reservasId } = req.body; // Extraer reservasId del cuerpo de la solicitud
+      let totalUpdated = 0;
+  
+      for (const reservaId of reservasId) {
+        const updatedReservas = await Reserva.update(
+          { vianda: true },
+          { 
+            where: { 
+              id: reservaId // Actualiza basado en el ID de la reserva
+            } 
+          }
+        );
+        totalUpdated += updatedReservas[0]; // Suma el total de reservas actualizadas
+      }
+  
+      if (totalUpdated === 0) throw new Error('No se encontraron reservas para actualizar');
+      res.status(200).send({ success: true, message: `Total de reservas actualizadas: ${totalUpdated}` });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
+    }
+  };
+
   updatePresence = async (req, res) => {
     try {
       const { id } = req.params;

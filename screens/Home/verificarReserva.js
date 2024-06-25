@@ -1,21 +1,28 @@
 import React from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Linking } from 'react-native';
 import { Button } from 'react-native-paper';
 import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import TextoEncerrado from '../../components/TextoEncerrado';
 import TextoComun from '../../components/TextoComun';
 import ReservaService from '../../services/reservas.js';
+import GlobalContext from '../../services/GlobalContext';
+import { useContext } from 'react';
 
 export default ({ navigation , route }) => {
   const { reserva } = route.params;
   const texto = "Dia: " + reserva.fecha
+  const {
+    refresh,
+    setRefresh,
+  } = useContext(GlobalContext);
   const navigateToLogin = () => {
     navigation.navigate('Home');
   };
 
   const handleVianda = () => {
-    ReservaService.updateVianda(data.reserva.id)
+    console.log('RESERVA: ', reserva.id);
+    ReservaService.updateVianda(reserva.id)
       .then((data) => {
         console.log(data);
         if (data.success) {
