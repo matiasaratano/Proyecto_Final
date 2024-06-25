@@ -382,6 +382,8 @@ class ReservaController {
       // Guardamos el ID del usuario
       const userId = reserva.UserId;
 
+      const fecha = reserva.fecha;
+
       // Llamamos al método deleteReserva
       const deleteReservaResponse = await this.deleteReserva(req, res);
 
@@ -411,7 +413,7 @@ class ReservaController {
         await this.sendPushNotification(
           filteredData[0].notificationToken,
           'Reserva eliminada.',
-          `Tu reserva ha sido eliminada por un administrador. Motivo: ${reason}`
+          `Tu reserva para el día ${fecha} ha sido eliminada por un administrador. Motivo: ${reason}`
         );
       }
     } catch (error) {
