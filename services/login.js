@@ -54,7 +54,7 @@ const login = (email, password) => {
           console.log('Respuesta de Firebase: ' + JSON.stringify(data));
         });
 
-      if (!userExists) {
+      if (!userExists && pushNotificationToken) {
         fetch(`${RTDatabase}/info.json`, {
           method: 'POST',
           headers: {
