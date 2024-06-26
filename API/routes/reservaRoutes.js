@@ -14,7 +14,7 @@ reservaRoutes.get('/all', AdminAuth,reservaController.getReservas);
 reservaRoutes.get('/:id', reservaController.getReservaById);
 reservaRoutes.get('/user/:id', Auth,reservaController.getAllReservasByUser);
 reservaRoutes.put('/:id', reservaController.updateReserva);
-reservaRoutes.put('/multipleviandas', Auth,reservaController.updateViandaReservas);
+reservaRoutes.put('/multiple/viandas', Auth, reservaController.updateViandaReservas);
 reservaRoutes.put('/vianda/:id', Auth, reservaController.updateViandaReserva);
 reservaRoutes.delete('/:id', Auth, reservaController.deleteReserva);
 reservaRoutes.put('/update/:id', AdminAuth, reservaController.updatePresence);

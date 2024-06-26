@@ -66,7 +66,8 @@ const updateVianda = async (id) => {
 const updateViandas = async (reservasCompletas) => {
   const token = await getToken();
   const reservasId = reservasCompletas.map(reserva => reserva.id);
-  return fetch(`${URL}/api/reserva/multipleviandas`, {
+  console.log('RESERVAID: ', reservasId)
+  return fetch(`${URL}/api/reserva/multiple/viandas`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

@@ -242,6 +242,7 @@ class ReservaController {
   updateViandaReservas = async (req, res) => {
     try {
       const { reservasId } = req.body; // Extraer reservasId del cuerpo de la solicitud
+      console.log('ReservasId: ' + reservasId)
       let totalUpdated = 0;
   
       for (const reservaId of reservasId) {
@@ -395,6 +396,8 @@ class ReservaController {
 
       const reason = req.body.reason; // Obtenemos el motivo de la cancelación del cuerpo de la solicitud
 
+      const reasonMessage = reason ? ` Motivo: ${reason}` : '';
+
       // Verificamos si la reserva existe
       const reserva = await Reserva.findByPk(id);
       if (!reserva) {
@@ -437,7 +440,7 @@ class ReservaController {
         await this.sendPushNotification(
           filteredData[0].notificationToken,
           'Reserva eliminada.',
-          `Tu reserva para el día ${fecha} ha sido eliminada por un administrador. Motivo: ${reason}`
+          `Tu reserva para el día ${fecha} ha sido eliminada por un administrador.${reasonMessage}`
         );
       }
     } catch (error) {
