@@ -63,6 +63,26 @@ const updateVianda = async (id) => {
   });
 };
 
+const updateViandas = async (reservasCompletas) => {
+  const token = await getToken();
+  const reservasId = reservasCompletas.map(reserva => reserva.id);
+  console.log('RESERVAID: ', reservasId)
+  return fetch(`${URL}/api/reserva/multiple/viandas`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Token': token, 
+    },
+    body: JSON.stringify({ reservasId}),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else {
+      return res.json();
+    }
+  });
+};
+
 const getIntoListaEspera = (fecha, user) => {
   const jwtInfo = jwt_decode(user);
   const userId = jwtInfo.id;
@@ -116,4 +136,5 @@ export default {
   updateVianda,
   getIntoListaEspera,
   createReservas,
+  updateViandas,
 };

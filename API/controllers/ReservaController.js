@@ -239,6 +239,31 @@ class ReservaController {
     }
   };
 
+  updateViandaReservas = async (req, res) => {
+    try {
+      const { reservasId } = req.body; // Extraer reservasId del cuerpo de la solicitud
+      console.log('ReservasId: ' + reservasId)
+      let totalUpdated = 0;
+  
+      for (const reservaId of reservasId) {
+        const updatedReservas = await Reserva.update(
+          { vianda: true },
+          { 
+            where: { 
+              id: reservaId // Actualiza basado en el ID de la reserva
+            } 
+          }
+        );
+        totalUpdated += updatedReservas[0]; // Suma el total de reservas actualizadas
+      }
+  
+      if (totalUpdated === 0) throw new Error('No se encontraron reservas para actualizar');
+      res.status(200).send({ success: true, message: `Total de reservas actualizadas: ${totalUpdated}` });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
+    }
+  };
+
   updatePresence = async (req, res) => {
     try {
       const { id } = req.params;
@@ -371,6 +396,8 @@ class ReservaController {
 
       const reason = req.body.reason; // Obtenemos el motivo de la cancelación del cuerpo de la solicitud
 
+      const reasonMessage = reason ? ` Motivo: ${reason}` : '';
+
       // Verificamos si la reserva existe
       const reserva = await Reserva.findByPk(id);
       if (!reserva) {
@@ -413,7 +440,7 @@ class ReservaController {
         await this.sendPushNotification(
           filteredData[0].notificationToken,
           'Reserva eliminada.',
-          `Tu reserva para el día ${fecha} ha sido eliminada por un administrador. Motivo: ${reason}`
+          `Tu reserva para el día ${fecha} ha sido eliminada por un administrador.${reasonMessage}`
         );
       }
     } catch (error) {

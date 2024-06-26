@@ -24,7 +24,7 @@ export default ({ navigation, route }) => {
           alert('Reservas Creadas');
           setClearElegido(!clearElegido);
           setListaAReservar([]);
-          navigation.navigate('Tu reserva fue confirmada');
+          navigation.navigate('Tu reserva fue confirmada', { reservasCompletas: data.reservasCompletas});
         } else {
           alert(data.message);
         }
