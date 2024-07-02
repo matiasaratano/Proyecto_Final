@@ -24,7 +24,6 @@ class ReportService {
             for (let user of users) {
                 // Llamar al método en la instancia de ReservaController
                 const reservasTotales = await reservaController.getAllReservasByUserForMonth(user.userId, month, year);
-                //console.log("Reservas totales en ReservasController: " + JSON.stringify(reservasTotales, null, 2));
 
                 const numReservas = reservasTotales.length;
                 const numAusentes = reservasTotales.filter(objetoReserva => objetoReserva.reserva.presente === false).length;

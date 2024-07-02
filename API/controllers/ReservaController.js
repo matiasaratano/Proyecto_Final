@@ -34,7 +34,6 @@ class ReservaController {
 
       // Actualizamos disponibilidad de asientos
       const asientosDisponibles = 24 - reservasExistente - 1; // Restamos 1 por la reserva actual
-      console.log(`Quedan ${asientosDisponibles} asientos disponibles.`);
 
       // Se notifica el estado del cierre de la ejecucion
       res.status(200).send({
@@ -166,9 +165,6 @@ class ReservaController {
       const startOfMonth = new Date(year, month - 1, 1);
       const endOfMonth = new Date(year, month, 0);
 
-      console.log('startOfMonth: ' + startOfMonth);
-      console.log('endOfMonth: ' + endOfMonth);
-
       const reservasTotales = await Reserva.findAll({
         attributes: [
           [Sequelize.literal('DATE_FORMAT(fecha, "%Y-%m-%d")'), 'fecha'], // Formato de fecha "yyyy-mm-dd"
@@ -184,9 +180,6 @@ class ReservaController {
       });
 
       const fechas = formateador.crearFechasDelMes(month, year);
-      console.log(
-        'Fechas en ReservasController: ' + JSON.stringify(fechas, null, 2)
-      );
 
       const reservas = await Reserva.findAll({
         where: {
@@ -206,10 +199,6 @@ class ReservaController {
 
       // Filtrar los objetos que no tienen reservas nulas
       resultado = resultado.filter((item) => item.reserva !== null);
-
-      console.log(
-        'Resultado en ReservasController: ' + JSON.stringify(resultado, null, 2)
-      );
 
       return resultado;
     } catch (error) {
@@ -242,7 +231,6 @@ class ReservaController {
   updateViandaReservas = async (req, res) => {
     try {
       const { reservasId } = req.body; // Extraer reservasId del cuerpo de la solicitud
-      console.log('ReservasId: ' + reservasId)
       let totalUpdated = 0;
   
       for (const reservaId of reservasId) {
@@ -294,7 +282,6 @@ class ReservaController {
 
       // Verificamos si la reserva existe
       const reserva = await Reserva.findByPk(id);
-      console.log('Primera reserva: ' + reserva);
       if (!reserva) {
         return res
           .status(400)
@@ -328,7 +315,6 @@ class ReservaController {
         },
         order: [['ingreso', 'ASC']],
       });
-      console.log('Usuario de la lista: ' + userlista);
       if (userlista) {
         //Creamos Reserva para Usuario en Lista de Espera
         const nuevaReserva = await Reserva.create({
@@ -336,8 +322,6 @@ class ReservaController {
           vianda: false,
           UserId: userlista.UserId,
         });
-        console.log('Reserva nueva para el usuario: ' + nuevaReserva);
-        console.log('Id del Usuario de la lista: ' + userlista.UserId);
         //Borramos al Usuario de La Lista de Espera
         await UserXLista.destroy({
           where: { UserId: userlista.UserId, fecha: userlista.fecha },
@@ -354,18 +338,12 @@ class ReservaController {
           }
         );
         const data = await response.json();
-        console.log(
-          'Respuesta de Firebase desde el backEnd: ' + JSON.stringify(data)
-        );
 
         const dataArray = Object.values(data);
 
         // Filtramos la información para quedarnos solo con el objeto que tenga el mismo userId
         const filteredData = dataArray.filter(
           (item) => item.userId === userlista.UserId
-        );
-        console.log(
-          'Data filtrada de firebase: ' + JSON.stringify(filteredData)
         );
 
         // Enviamos una notificación push
@@ -413,10 +391,6 @@ class ReservaController {
 
       // Llamamos al método deleteReserva
       const deleteReservaResponse = await this.deleteReserva(req, res);
-
-      console.log(
-        'Respuesta de deleteReserva: ' + JSON.stringify(deleteReservaResponse)
-      );
 
       // Traemos la información de Firebase
       const response = await fetch(

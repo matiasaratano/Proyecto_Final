@@ -45,7 +45,6 @@ const Reserva = ({ data, navigation }) => {
 
   //Metodo para Agregar o Quitar Reserva de Lista de Reservas a Reservar.
   const handleReserva = () => {
-    console.log("Reserva de la data: " + data.reserva)
     if (data.reserva !== null) {
       navigation.navigate('Verificar tu reserva', {reserva: data.reserva});
     } else if (completo) {
@@ -59,7 +58,6 @@ const Reserva = ({ data, navigation }) => {
         listaAReservar.push(data.fecha);
         setListaAReservar(listaAReservar);
         setElegido(!elegido);
-        console.log(listaAReservar);
       }
     }
   };
@@ -67,7 +65,6 @@ const Reserva = ({ data, navigation }) => {
   const handleCancelacion = () => {
     ReservaService.deleteReserva(data.reserva.id)
       .then((data) => {
-        console.log(data);
         if (data.success) {
           alert('Reserva Borrada');
           setRefresh(!refresh);
@@ -87,7 +84,7 @@ const Reserva = ({ data, navigation }) => {
       [
         {
           text: 'Volver',
-          onPress: () => console.log('OK Pressed'),
+          onPress: () => {},
           style: 'cancel',
         },
         { text: 'OK', onPress: handleCancelacion },
@@ -98,7 +95,6 @@ const Reserva = ({ data, navigation }) => {
   const handleVianda = () => {
     ReservaService.updateVianda(data.reserva.id)
       .then((data) => {
-        console.log(data);
         if (data.success) {
           alert('Se da aviso de vianda a RRHH');
           setRefresh(!refresh);
@@ -119,7 +115,7 @@ const Reserva = ({ data, navigation }) => {
       [
         {
           text: 'Volver',
-          onPress: () => console.log('Volver Pressed'),
+          onPress: () => {},
           style: 'cancel',
         },
         { text: 'OK, ingresar', onPress: handleListaEspera },
@@ -130,7 +126,6 @@ const Reserva = ({ data, navigation }) => {
   const handleListaEspera = () => {
     ReservaService.getIntoListaEspera(data.fecha, user)
       .then((data) => {
-        console.log(data);
         if (data.success) {
           setEnListaDeEspera(true);
           navigation.navigate("Lista de Espera")

@@ -20,7 +20,6 @@ export default ({ navigation, route }) => {
   const handleVianda = () => {
     ReservaService.updateViandas(reservasCompletas)
       .then((data) => {
-        console.log(data);
         if (data.success) {
           alert('Se da aviso de vianda a RRHH');
           setRefresh(!refresh);
