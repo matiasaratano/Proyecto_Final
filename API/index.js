@@ -20,5 +20,4 @@ app.use((req, res) => {
 await connection.sync({ force:false });
 
 app.listen(8080, () => {
-  console.log('El servidor está funcionando');
 });

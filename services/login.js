@@ -18,8 +18,6 @@ const login = (email, password) => {
     body: JSON.stringify(requestBody),
   })
     .then((res) => {
-      // console.log('url' + URL);
-      // console.log('RTD' + RTDatabase);
       if (res.status === 200) {
         return res.json();
       } else {
@@ -51,7 +49,6 @@ const login = (email, password) => {
               break;
             }
           }
-          console.log('Respuesta de Firebase: ' + JSON.stringify(data));
         });
 
       if (!userExists && pushNotificationToken) {

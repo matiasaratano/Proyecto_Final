@@ -21,10 +21,8 @@ export default ({ navigation , route }) => {
   };
 
   const handleVianda = () => {
-    console.log('RESERVA: ', reserva.id);
     ReservaService.updateVianda(reserva.id)
       .then((data) => {
-        console.log(data);
         if (data.success) {
           alert('Se da aviso de vianda a RRHH');
           setRefresh(!refresh);

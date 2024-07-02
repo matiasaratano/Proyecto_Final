@@ -53,7 +53,6 @@ export default ({ navigation }) => {
         [
           {
             text: MIS_RESERVAS_SIN_RESERVAS_ALERT3,
-            onPress: () => console.log('OK Pressed'),
           },
         ]
       );
@@ -64,7 +63,7 @@ export default ({ navigation }) => {
         [
           {
             text: MIS_RESERVAS_CONFIRMAR_RESERVA_ALERT3,
-            onPress: () => console.log('Volver Pressed'),
+            onPress: () => {},
             style: 'cancel',
           },
           {

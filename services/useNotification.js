@@ -40,7 +40,6 @@ async function registerForPushNotificationsAsync() {
         token = await Notifications.getExpoPushTokenAsync({
             projectId: Constants.expoConfig.extra.eas.projectId,
         });
-        console.log(token);
     } else {
         alert('Must use physical device for Push Notifications');
     }
@@ -54,15 +53,9 @@ const useNotification = () => {
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => {
             setExpoPushToken(token.data);
-    
-            // Verifica que el token se está generando correctamente
-            console.log("TokenPushNotification: ", token.data); 
-    
             // Guarda el token en AsyncStorage
             asyncStorage.storeData('pushNotificationToken', token.data)
-                .then(() => {
-                    console.log('Token guardado en AsyncStorage');
-                })
+                .then(() => {})
                 .catch(error => console.log(error));
         });
     }, []);

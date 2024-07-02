@@ -8,10 +8,8 @@ async function getToken() {
 }
 
 const getReservasByUser = (user) => {
-  console.log('user entrante: ' + user);
   const jwtInfo = jwt_decode(user);
   const id = jwtInfo.id;
-  console.log("Url: " + URL + ", id: " + id)
   return fetch(`${URL}/api/reserva/user/${id}`, {
     headers: {
       'Token': user, 
@@ -66,7 +64,6 @@ const updateVianda = async (id) => {
 const updateViandas = async (reservasCompletas) => {
   const token = await getToken();
   const reservasId = reservasCompletas.map(reserva => reserva.id);
-  console.log('RESERVAID: ', reservasId)
   return fetch(`${URL}/api/reserva/multiple/viandas`, {
     method: 'PUT',
     headers: {
@@ -113,7 +110,6 @@ const createReservas = (fechas, user) => {
     fechas: fechas,
     userId: userId
   };
-  console.log('Creando Reservas...');
   return fetch(`${URL}/api/reserva/reservas`, {
     method: 'POST',
     headers: {

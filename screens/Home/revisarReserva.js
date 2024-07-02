@@ -7,7 +7,6 @@ import styles from '../../styles/styles';
 import buttons from '../../styles/buttons';
 import GlobalContext from '../../services/GlobalContext';
 import ReservaService from '../../services/reservas.js';
-import { useFocusEffect } from '@react-navigation/native';
 
 export default ({ navigation, route }) => {
   const fechas = route.params && route.params.fechas;
@@ -19,7 +18,6 @@ export default ({ navigation, route }) => {
     }
     ReservaService.createReservas(fechas, user)
       .then((data) => {
-        console.log(data);
         if (data.success) {
           alert('Reservas Creadas');
           setClearElegido(!clearElegido);

@@ -25,8 +25,6 @@ export default function App() {
   const handleLogout = async() => {
     await asyncStorage.removeData('Token');
     setUser(null);
-    console.log('User al desloguearse: ' + user)
-    console.log('Se limpia la cache al deslogear: ' + await asyncStorage.getData('Token'));
 
   };
 
@@ -34,10 +32,7 @@ export default function App() {
     const fetchToken = async () => {
       const token = await asyncStorage.getData('Token');
       if (token) {
-         console.log('Valor de token: ' + token)
         setUser( token );
-      }else{
-        console.log('No hay token')
       }
       setLoading(false);
     };
@@ -48,12 +43,8 @@ export default function App() {
   useEffect(() => {
     if (!loading){
       if(user){
-         console.log('Se carga Cache con Datos')
-         console.log(user)
         asyncStorage.storeData('Token', user)
       }else{
-        // console.log("valor de user: " + user)
-        // console.log('Se limpia la cache al deslogear')
         asyncStorage.removeData('Token');
       }
     };
